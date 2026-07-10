@@ -1687,6 +1687,8 @@ class SharedPreferencesAsync {
     'display_chat_font_scale_v1',
     'desktop_hotkeys_commands_v1',
     'desktop_hotkeys_enabled_v1',
+    'sync_ledger_v1',
+    'sync_config_v1',
   };
 
   static Future<SharedPreferencesAsync> get instance async {

@@ -4,6 +4,7 @@ import 'package:path/path.dart' as p;
 import 'package:hive_flutter/hive_flutter.dart';
 import '../../models/chat_message.dart';
 import '../../models/conversation.dart';
+import '../sync/sync_api_client.dart';
 import '../../../utils/sandbox_path_resolver.dart';
 import '../../../utils/app_directories.dart';
 
@@ -12,6 +13,7 @@ class ChatService extends ChangeNotifier {
   static const String _messagesBoxName = 'messages';
   static const String _toolEventsBoxName = 'tool_events_v1';
   static const String _activeStreamingKey = '_active_streaming_ids';
+  static const String _cloudTaskIdsKey = '_cloud_task_ids';
   static const int defaultInitialMessageMin = 2;
   static const int defaultInitialMessageMax = 240;
   static const int defaultInitialTextBudget = 20000;
@@ -31,6 +33,10 @@ class ChatService extends ChangeNotifier {
   final Map<String, List<Map<String, dynamic>>> _temporaryToolEvents =
       <String, List<Map<String, dynamic>>>{};
   final Map<String, String> _temporaryGeminiThoughtSigs = <String, String>{};
+
+  /// Map of messageId -> taskId for messages with active cloud generation.
+  /// Persisted to [_toolEventsBox] so cloud tasks can be recovered on restart.
+  final Map<String, String> _cloudTaskIds = <String, String>{};
 
   // Localized default title for new conversations; set by UI on startup.
   String _defaultConversationTitle = 'New Chat';
@@ -495,15 +501,27 @@ class ChatService extends ChangeNotifier {
   /// so any persisted `isStreaming: true` is stale and must be cleared to
   /// avoid stuck loading indicators.
   ///
+  /// Messages that have a registered cloud task are excluded — they keep
+  /// their streaming state so the UI continues to show a loading indicator
+  /// until [recoverCloudTasks] runs.
+  ///
   /// Uses a tracked set of streaming message IDs for O(1) lookup instead of
   /// scanning every message in the box.
   Future<void> _resetStaleStreamingFlags() async {
     try {
+      // Load persisted cloud task registrations first, so we can preserve
+      // streaming state for messages with pending cloud tasks.
+      _loadCloudTaskIds();
+
       final raw = _toolEventsBox.get(_activeStreamingKey);
       if (raw == null) return;
       final ids = (raw as List).cast<String>();
       if (ids.isEmpty) return;
       for (final id in ids) {
+        // Skip messages that have a registered cloud task — they should
+        // remain in streaming state until recovery runs.
+        if (_cloudTaskIds.containsKey(id)) continue;
+
         final msg = _messagesBox.get(id);
         if (msg != null && msg.isStreaming) {
           await _messagesBox.put(id, msg.copyWith(isStreaming: false));
@@ -543,6 +561,166 @@ class ChatService extends ChangeNotifier {
         }
       }
     } catch (_) {}
+  }
+
+  // ---------------------------------------------------------------------------
+  // Cloud task tracking (for restart recovery)
+  // ---------------------------------------------------------------------------
+
+  /// Register a cloud task for a message so it can be recovered on app restart.
+  void registerCloudTask(String messageId, String taskId) {
+    _cloudTaskIds[messageId] = taskId;
+    _persistCloudTaskIds();
+  }
+
+  /// Remove a cloud task registration.
+  void unregisterCloudTask(String messageId) {
+    if (_cloudTaskIds.remove(messageId) != null) {
+      _persistCloudTaskIds();
+    }
+  }
+
+  /// Get all pending cloud task registrations (messageId -> taskId).
+  Map<String, String> get cloudTaskIds => Map.unmodifiable(_cloudTaskIds);
+
+  void _persistCloudTaskIds() {
+    try {
+      if (_cloudTaskIds.isEmpty) {
+        _toolEventsBox.delete(_cloudTaskIdsKey);
+      } else {
+        _toolEventsBox.put(
+          _cloudTaskIdsKey,
+          Map<String, String>.from(_cloudTaskIds),
+        );
+      }
+    } catch (_) {}
+  }
+
+  void _loadCloudTaskIds() {
+    try {
+      final raw = _toolEventsBox.get(_cloudTaskIdsKey);
+      if (raw is Map) {
+        _cloudTaskIds.clear();
+        raw.forEach((key, value) {
+          _cloudTaskIds[key.toString()] = value.toString();
+        });
+      }
+    } catch (_) {}
+  }
+
+  /// Recover pending cloud tasks after app restart.
+  ///
+  /// Checks each registered cloud task against the server:
+  /// - Completed tasks: applies final content and clears streaming.
+  /// - Failed tasks: marks the message with the error and clears streaming.
+  /// - Still running/pending tasks: returned for the caller to reconnect.
+  ///
+  /// Call this after the app is fully initialized and sync is configured.
+  Future<Map<String, String>> recoverCloudTasks(SyncApiClient apiClient) async {
+    if (_cloudTaskIds.isEmpty) return const <String, String>{};
+
+    final entries = Map<String, String>.from(_cloudTaskIds);
+    final stillRunning = <String, String>{};
+
+    for (final entry in entries.entries) {
+      final messageId = entry.key;
+      final taskId = entry.value;
+
+      try {
+        final task = await apiClient.getTask(taskId);
+        final status = task['status'] as String?;
+
+        if (status == 'completed') {
+          final finalContent = task['finalContent'] as String? ?? '';
+          final totalTokens = task['totalTokens'] as int? ?? 0;
+          await _applyCloudTaskResult(messageId, finalContent, totalTokens);
+          unregisterCloudTask(messageId);
+        } else if (status == 'failed') {
+          final error = task['errorMessage'] as String? ?? 'Unknown error';
+          await _applyCloudTaskError(messageId, error);
+          unregisterCloudTask(messageId);
+        } else {
+          // Still running or pending — caller should reconnect.
+          stillRunning[messageId] = taskId;
+        }
+      } catch (e) {
+        debugPrint('Cloud task recovery failed for $taskId: $e');
+        // Reset streaming flag as fallback.
+        await _resetMessageStreamingFlag(messageId);
+        unregisterCloudTask(messageId);
+      }
+    }
+
+    return stillRunning;
+  }
+
+  Future<void> _applyCloudTaskResult(
+    String messageId,
+    String content,
+    int totalTokens,
+  ) async {
+    final msg = _messagesBox.get(messageId);
+    if (msg == null) return;
+
+    final updated = msg.copyWith(
+      content: content,
+      totalTokens: totalTokens,
+      isStreaming: false,
+    );
+    await _messagesBox.put(messageId, updated);
+    _untrackStreamingId(messageId);
+
+    // Update cache
+    if (_messagesCache.containsKey(msg.conversationId)) {
+      final messages = _messagesCache[msg.conversationId]!;
+      final index = messages.indexWhere((m) => m.id == messageId);
+      if (index != -1) {
+        messages[index] = updated;
+      }
+    }
+
+    notifyListeners();
+  }
+
+  Future<void> _applyCloudTaskError(String messageId, String error) async {
+    final msg = _messagesBox.get(messageId);
+    if (msg == null) return;
+
+    final updated = msg.copyWith(
+      content: msg.content.isNotEmpty ? msg.content : error,
+      isStreaming: false,
+    );
+    await _messagesBox.put(messageId, updated);
+    _untrackStreamingId(messageId);
+
+    // Update cache
+    if (_messagesCache.containsKey(msg.conversationId)) {
+      final messages = _messagesCache[msg.conversationId]!;
+      final index = messages.indexWhere((m) => m.id == messageId);
+      if (index != -1) {
+        messages[index] = updated;
+      }
+    }
+
+    notifyListeners();
+  }
+
+  Future<void> _resetMessageStreamingFlag(String messageId) async {
+    final msg = _messagesBox.get(messageId);
+    if (msg != null && msg.isStreaming) {
+      final updated = msg.copyWith(isStreaming: false);
+      await _messagesBox.put(messageId, updated);
+      _untrackStreamingId(messageId);
+
+      // Update cache
+      if (_messagesCache.containsKey(msg.conversationId)) {
+        final messages = _messagesCache[msg.conversationId]!;
+        final index = messages.indexWhere((m) => m.id == messageId);
+        if (index != -1) {
+          messages[index] = updated;
+        }
+      }
+    }
   }
 
   Future<void> _cleanupOrphanUploads() async {
@@ -811,6 +989,23 @@ class ChatService extends ChangeNotifier {
     if (conversation == null || conversation.chatSuggestions.isEmpty) return;
 
     conversation.chatSuggestions = <String>[];
+    await conversation.save();
+    notifyListeners();
+  }
+
+  Future<void> setConversationLocalOnly(String id, bool localOnly) async {
+    if (!_initialized) return;
+
+    if (_draftConversations.containsKey(id)) {
+      final draft = _draftConversations[id]!;
+      draft.localOnly = localOnly;
+      notifyListeners();
+      return;
+    }
+    final conversation = _conversationsBox.get(id);
+    if (conversation == null) return;
+
+    conversation.localOnly = localOnly;
     await conversation.save();
     notifyListeners();
   }
@@ -1477,6 +1672,7 @@ class ChatService extends ChangeNotifier {
     _temporaryConversationIds.clear();
     _temporaryToolEvents.clear();
     _temporaryGeminiThoughtSigs.clear();
+    _cloudTaskIds.clear();
     _currentConversationId = null;
     // Remove uploads directory completely
     try {

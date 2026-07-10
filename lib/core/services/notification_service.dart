@@ -1,7 +1,34 @@
 import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationService {
+  /// Show a local notification when a cloud task completes.
+  ///
+  /// This is called when the client receives a cloud task completion event
+  /// via WebSocket while the app is backgrounded (but still has a foreground
+  /// service / background task running). It re-uses the existing local
+  /// notification infrastructure — no Firebase or FCM dependency.
+  static Future<void> handleCloudTaskNotification(
+    String taskId,
+    String conversationId, {
+    String? title,
+    String? body,
+  }) async {
+    if (Platform.isAndroid) {
+      await showChatCompleted(
+        title: title ?? 'Cloud generation complete',
+        body: body ?? 'Your cloud task has finished',
+      );
+    } else {
+      // iOS uses APNs push from the server side.
+      // Desktop has no system notification for this.
+      debugPrint(
+        'Cloud task $taskId completed for conversation $conversationId',
+      );
+    }
+  }
+
   static final FlutterLocalNotificationsPlugin _plugin =
       FlutterLocalNotificationsPlugin();
   static bool _inited = false;
