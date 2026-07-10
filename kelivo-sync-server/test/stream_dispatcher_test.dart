@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
 
-import 'package:kelivo_sync_server/services/stream_dispatcher.dart';
+import 'package:kelivo_max_sync_server/services/stream_dispatcher.dart';
 
 void main() {
   group('StreamDispatcher lifecycle', () {

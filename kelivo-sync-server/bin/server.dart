@@ -5,18 +5,18 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:shelf_router/shelf_router.dart';
 
-import 'package:kelivo_sync_server/middleware/auth_middleware.dart';
-import 'package:kelivo_sync_server/routes/auth.dart';
-import 'package:kelivo_sync_server/routes/changes.dart';
-import 'package:kelivo_sync_server/routes/devices.dart';
-import 'package:kelivo_sync_server/routes/files.dart';
-import 'package:kelivo_sync_server/routes/health.dart';
-import 'package:kelivo_sync_server/routes/tasks.dart';
-import 'package:kelivo_sync_server/routes/ws.dart';
-import 'package:kelivo_sync_server/services/database.dart';
-import 'package:kelivo_sync_server/services/push_service.dart';
-import 'package:kelivo_sync_server/services/relay_service.dart';
-import 'package:kelivo_sync_server/services/stream_dispatcher.dart';
+import 'package:kelivo_max_sync_server/middleware/auth_middleware.dart';
+import 'package:kelivo_max_sync_server/routes/auth.dart';
+import 'package:kelivo_max_sync_server/routes/changes.dart';
+import 'package:kelivo_max_sync_server/routes/devices.dart';
+import 'package:kelivo_max_sync_server/routes/files.dart';
+import 'package:kelivo_max_sync_server/routes/health.dart';
+import 'package:kelivo_max_sync_server/routes/tasks.dart';
+import 'package:kelivo_max_sync_server/routes/ws.dart';
+import 'package:kelivo_max_sync_server/services/database.dart';
+import 'package:kelivo_max_sync_server/services/push_service.dart';
+import 'package:kelivo_max_sync_server/services/relay_service.dart';
+import 'package:kelivo_max_sync_server/services/stream_dispatcher.dart';
 
 void main(List<String> args) async {
   final port = int.tryParse(Platform.environment['PORT'] ?? '8080') ?? 8080;

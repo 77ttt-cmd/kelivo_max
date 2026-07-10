@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:kelivo_sync_server/services/database.dart';
+import 'package:kelivo_max_sync_server/services/database.dart';
 
 class FileService {
   /// Get file metadata by hash for a specific user.

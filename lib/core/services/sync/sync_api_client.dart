@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
-import 'package:Kelivo/core/models/sync_enums.dart';
-import 'package:Kelivo/core/services/sync/sync_credential_store.dart';
+import 'package:kelivo_max/core/models/sync_enums.dart';
+import 'package:kelivo_max/core/services/sync/sync_credential_store.dart';
 
 /// Result of a pull-changes request.
 class PullChangesResult {

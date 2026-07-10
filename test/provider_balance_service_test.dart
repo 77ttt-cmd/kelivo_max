@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:Kelivo/core/providers/settings_provider.dart';
-import 'package:Kelivo/core/services/provider_balance_service.dart';
+import 'package:kelivo_max/core/providers/settings_provider.dart';
+import 'package:kelivo_max/core/services/provider_balance_service.dart';
 
 ProviderConfig _openAiConfig(String baseUrl) {
   return ProviderConfig(

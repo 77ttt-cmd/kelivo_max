@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:Kelivo/core/services/mcp/stdio_command_resolver.dart';
+import 'package:kelivo_max/core/services/mcp/stdio_command_resolver.dart';
 
 void main() {
   group('mergePathValues', () {

@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:test/test.dart';
 
-import 'package:kelivo_sync_server/models/change_entry.dart';
-import 'package:kelivo_sync_server/services/changelog_service.dart';
+import 'package:kelivo_max_sync_server/models/change_entry.dart';
+import 'package:kelivo_max_sync_server/services/changelog_service.dart';
 
 void main() {
   group('ChangeEntry', () {

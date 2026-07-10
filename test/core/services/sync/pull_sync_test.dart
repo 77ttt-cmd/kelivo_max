@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:Kelivo/core/models/sync_config.dart';
-import 'package:Kelivo/core/models/sync_enums.dart';
-import 'package:Kelivo/core/providers/sync_provider.dart';
-import 'package:Kelivo/core/services/sync/sync_api_client.dart';
+import 'package:kelivo_max/core/models/sync_config.dart';
+import 'package:kelivo_max/core/models/sync_enums.dart';
+import 'package:kelivo_max/core/providers/sync_provider.dart';
+import 'package:kelivo_max/core/services/sync/sync_api_client.dart';
 
 void main() {
   group('SyncConfig category filtering', () {

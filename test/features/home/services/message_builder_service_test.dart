@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:Kelivo/core/models/assistant.dart';
-import 'package:Kelivo/core/models/chat_message.dart';
-import 'package:Kelivo/core/models/conversation.dart';
-import 'package:Kelivo/core/services/chat/chat_service.dart';
-import 'package:Kelivo/features/home/services/message_builder_service.dart';
+import 'package:kelivo_max/core/models/assistant.dart';
+import 'package:kelivo_max/core/models/chat_message.dart';
+import 'package:kelivo_max/core/models/conversation.dart';
+import 'package:kelivo_max/core/services/chat/chat_service.dart';
+import 'package:kelivo_max/features/home/services/message_builder_service.dart';
 
 class _FakeBuildContext implements BuildContext {
   @override

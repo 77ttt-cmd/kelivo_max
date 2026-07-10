@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:Kelivo/core/models/sync_enums.dart';
+import 'package:kelivo_max/core/models/sync_enums.dart';
 
 /// Tracks which records and files were synced (pulled or pushed).
 /// Used by IncognitoWipe to know what to delete.

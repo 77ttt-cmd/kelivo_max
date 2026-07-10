@@ -1,6 +1,6 @@
 # Kelivo Sync Server
 
-Backend server for Kelivo cloud sync.
+Backend server for Kelivo Max cloud sync.
 
 ## Development
 

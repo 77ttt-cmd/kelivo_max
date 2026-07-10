@@ -1,4 +1,4 @@
-import 'package:Kelivo/theme/app_font_weights.dart';
+import 'package:kelivo_max/theme/app_font_weights.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

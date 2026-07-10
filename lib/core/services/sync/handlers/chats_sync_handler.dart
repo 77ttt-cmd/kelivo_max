@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:Kelivo/core/models/chat_message.dart';
-import 'package:Kelivo/core/models/conversation.dart';
-import 'package:Kelivo/core/models/sync_enums.dart';
-import 'package:Kelivo/core/services/sync/sync_category_handler.dart';
+import 'package:kelivo_max/core/models/chat_message.dart';
+import 'package:kelivo_max/core/models/conversation.dart';
+import 'package:kelivo_max/core/models/sync_enums.dart';
+import 'package:kelivo_max/core/services/sync/sync_category_handler.dart';
 
 /// Sync handler for chat conversations and messages (Hive-backed).
 ///

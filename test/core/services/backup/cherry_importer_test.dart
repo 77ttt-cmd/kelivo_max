@@ -8,10 +8,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:Kelivo/core/models/backup.dart';
-import 'package:Kelivo/core/providers/settings_provider.dart';
-import 'package:Kelivo/core/services/backup/cherry_importer.dart';
-import 'package:Kelivo/core/services/chat/chat_service.dart';
+import 'package:kelivo_max/core/models/backup.dart';
+import 'package:kelivo_max/core/providers/settings_provider.dart';
+import 'package:kelivo_max/core/services/backup/cherry_importer.dart';
+import 'package:kelivo_max/core/services/chat/chat_service.dart';
 
 class _FakePathProviderPlatform extends PathProviderPlatform {
   _FakePathProviderPlatform(this.path);

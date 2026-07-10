@@ -13,7 +13,7 @@ import '../../../core/services/sync/sync_ledger.dart';
 import '../../../core/services/haptics.dart';
 import '../../../shared/widgets/ios_form_text_field.dart';
 import '../../../shared/widgets/ios_switch.dart';
-import 'package:Kelivo/theme/app_font_weights.dart';
+import 'package:kelivo_max/theme/app_font_weights.dart';
 
 class SyncPage extends StatefulWidget {
   const SyncPage({super.key});

@@ -7,8 +7,8 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:test/test.dart';
 
-import 'package:kelivo_sync_server/middleware/auth_middleware.dart';
-import 'package:kelivo_sync_server/routes/files.dart';
+import 'package:kelivo_max_sync_server/middleware/auth_middleware.dart';
+import 'package:kelivo_max_sync_server/routes/files.dart';
 
 /// Builds a protected handler pipeline with file routes mounted at /files/.
 Handler _buildProtectedHandler() {

@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:Kelivo/core/models/assistant.dart';
-import 'package:Kelivo/core/models/sync_enums.dart';
-import 'package:Kelivo/core/services/sync/sync_category_handler.dart';
+import 'package:kelivo_max/core/models/assistant.dart';
+import 'package:kelivo_max/core/models/sync_enums.dart';
+import 'package:kelivo_max/core/services/sync/sync_category_handler.dart';
 
 /// Sync handler for assistants (SharedPreferences-backed JSON list).
 class AssistantsSyncHandler extends SyncCategoryHandler {

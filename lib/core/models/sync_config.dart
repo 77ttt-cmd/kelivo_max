@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:Kelivo/core/models/sync_enums.dart';
+import 'package:kelivo_max/core/models/sync_enums.dart';
 
 /// Configuration for cloud sync.
 /// Does NOT store password, access token, or refresh token.

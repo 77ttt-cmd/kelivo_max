@@ -102,7 +102,7 @@ class NotificationService {
           enableVibration: true,
           category: AndroidNotificationCategory.message,
           visibility: NotificationVisibility.public,
-          ticker: 'Kelivo',
+          ticker: 'Kelivo Max',
           styleInformation: const DefaultStyleInformation(true, true),
         ),
       ),

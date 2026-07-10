@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:test/test.dart';
 import 'package:shelf/shelf.dart';
 
-import 'package:kelivo_sync_server/routes/health.dart';
+import 'package:kelivo_max_sync_server/routes/health.dart';
 
 void main() {
   test('health endpoint returns ok', () async {

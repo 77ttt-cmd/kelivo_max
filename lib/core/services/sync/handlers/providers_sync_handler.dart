@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:Kelivo/core/models/sync_enums.dart';
-import 'package:Kelivo/core/providers/settings_provider.dart';
-import 'package:Kelivo/core/services/sync/sync_category_handler.dart';
+import 'package:kelivo_max/core/models/sync_enums.dart';
+import 'package:kelivo_max/core/providers/settings_provider.dart';
+import 'package:kelivo_max/core/services/sync/sync_category_handler.dart';
 
 /// Sync handler for LLM provider configurations (SharedPreferences-backed).
 ///

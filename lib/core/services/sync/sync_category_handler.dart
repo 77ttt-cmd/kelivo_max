@@ -1,13 +1,13 @@
-import 'package:Kelivo/core/models/sync_enums.dart';
-import 'package:Kelivo/core/services/sync/handlers/assistants_sync_handler.dart';
-import 'package:Kelivo/core/services/sync/handlers/chats_sync_handler.dart';
-import 'package:Kelivo/core/services/sync/handlers/files_sync_handler.dart';
-import 'package:Kelivo/core/services/sync/handlers/mcp_sync_handler.dart';
-import 'package:Kelivo/core/services/sync/handlers/providers_sync_handler.dart';
-import 'package:Kelivo/core/services/sync/handlers/quick_phrases_sync_handler.dart';
-import 'package:Kelivo/core/services/sync/handlers/search_services_sync_handler.dart';
-import 'package:Kelivo/core/services/sync/handlers/settings_sync_handler.dart';
-import 'package:Kelivo/core/services/sync/handlers/tts_services_sync_handler.dart';
+import 'package:kelivo_max/core/models/sync_enums.dart';
+import 'package:kelivo_max/core/services/sync/handlers/assistants_sync_handler.dart';
+import 'package:kelivo_max/core/services/sync/handlers/chats_sync_handler.dart';
+import 'package:kelivo_max/core/services/sync/handlers/files_sync_handler.dart';
+import 'package:kelivo_max/core/services/sync/handlers/mcp_sync_handler.dart';
+import 'package:kelivo_max/core/services/sync/handlers/providers_sync_handler.dart';
+import 'package:kelivo_max/core/services/sync/handlers/quick_phrases_sync_handler.dart';
+import 'package:kelivo_max/core/services/sync/handlers/search_services_sync_handler.dart';
+import 'package:kelivo_max/core/services/sync/handlers/settings_sync_handler.dart';
+import 'package:kelivo_max/core/services/sync/handlers/tts_services_sync_handler.dart';
 
 /// Abstract contract for per-category sync operations.
 ///

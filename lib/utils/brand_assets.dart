@@ -244,7 +244,7 @@ class BrandAssets {
     ),
     BrandIconOption(
       id: 'kelivo',
-      label: 'Kelivo',
+      label: 'Kelivo Max',
       asset: 'assets/icons/kelivo.png',
     ),
     BrandIconOption(

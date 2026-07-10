@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
-import 'package:Kelivo/core/models/sync_enums.dart';
-import 'package:Kelivo/core/services/sync/sync_ledger.dart';
+import 'package:kelivo_max/core/models/sync_enums.dart';
+import 'package:kelivo_max/core/services/sync/sync_ledger.dart';
 
 void main() {
   late Directory tempDir;

@@ -6,7 +6,7 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf_web_socket/shelf_web_socket.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-import 'package:kelivo_sync_server/services/relay_service.dart';
+import 'package:kelivo_max_sync_server/services/relay_service.dart';
 
 /// Creates a shelf [Handler] that upgrades requests to WebSocket connections.
 ///

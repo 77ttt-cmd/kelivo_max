@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:Kelivo/core/services/sync/cloud_task_stream.dart';
-import 'package:Kelivo/core/services/sync/sync_api_client.dart';
-import 'package:Kelivo/core/models/sync_config.dart';
+import 'package:kelivo_max/core/services/sync/cloud_task_stream.dart';
+import 'package:kelivo_max/core/services/sync/sync_api_client.dart';
+import 'package:kelivo_max/core/models/sync_config.dart';
 
 void main() {
   group('CloudTaskEvent', () {

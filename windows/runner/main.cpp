@@ -15,7 +15,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
 
   // Enforce a single running instance on Windows using a named mutex.
   HANDLE instance_mutex =
-      ::CreateMutexW(nullptr, TRUE, L"KelivoMutex");
+      ::CreateMutexW(nullptr, TRUE, L"KelivoMaxMutex");
   if (instance_mutex != nullptr && ::GetLastError() == ERROR_ALREADY_EXISTS) {
     // Another instance is already running; try to bring its window to front
     // instead of creating a new one.

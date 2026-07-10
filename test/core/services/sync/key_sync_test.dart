@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:Kelivo/core/models/api_keys.dart';
-import 'package:Kelivo/core/models/sync_enums.dart';
-import 'package:Kelivo/core/providers/settings_provider.dart';
-import 'package:Kelivo/core/services/sync/sync_category_handler.dart';
+import 'package:kelivo_max/core/models/api_keys.dart';
+import 'package:kelivo_max/core/models/sync_enums.dart';
+import 'package:kelivo_max/core/providers/settings_provider.dart';
+import 'package:kelivo_max/core/services/sync/sync_category_handler.dart';
 
 void main() {
   group('Provider key sync', () {

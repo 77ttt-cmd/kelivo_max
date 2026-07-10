@@ -3,14 +3,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:Kelivo/core/models/assistant.dart';
-import 'package:Kelivo/core/providers/assistant_provider.dart';
-import 'package:Kelivo/core/providers/memory_provider.dart';
-import 'package:Kelivo/core/providers/quick_phrase_provider.dart';
-import 'package:Kelivo/core/providers/settings_provider.dart';
-import 'package:Kelivo/features/assistant/pages/assistant_settings_edit_page.dart';
-import 'package:Kelivo/icons/lucide_adapter.dart';
-import 'package:Kelivo/l10n/app_localizations.dart';
+import 'package:kelivo_max/core/models/assistant.dart';
+import 'package:kelivo_max/core/providers/assistant_provider.dart';
+import 'package:kelivo_max/core/providers/memory_provider.dart';
+import 'package:kelivo_max/core/providers/quick_phrase_provider.dart';
+import 'package:kelivo_max/core/providers/settings_provider.dart';
+import 'package:kelivo_max/features/assistant/pages/assistant_settings_edit_page.dart';
+import 'package:kelivo_max/icons/lucide_adapter.dart';
+import 'package:kelivo_max/l10n/app_localizations.dart';
 
 const _assistantId = 'assistant-mcp-test';
 

@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:Kelivo/core/models/sync_config.dart';
-import 'package:Kelivo/core/models/sync_enums.dart';
-import 'package:Kelivo/core/providers/settings_provider.dart';
+import 'package:kelivo_max/core/models/sync_config.dart';
+import 'package:kelivo_max/core/models/sync_enums.dart';
+import 'package:kelivo_max/core/providers/settings_provider.dart';
 
 Future<void> _waitForSettingsLoad() async {
   for (var i = 0; i < 25; i++) {

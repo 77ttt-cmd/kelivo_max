@@ -4,8 +4,8 @@ import BackgroundTasks
 import UserNotifications
 import ActivityKit
 
-private let backgroundRefreshIdentifier = "psyche.kelivo.background-generation.refresh"
-private let backgroundProcessingIdentifier = "psyche.kelivo.background-generation.processing"
+private let backgroundRefreshIdentifier = "psyche.kelivo-max.background-generation.refresh"
+private let backgroundProcessingIdentifier = "psyche.kelivo-max.background-generation.processing"
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {
@@ -252,7 +252,7 @@ private final class IosBackgroundGenerationHandler {
 
   private func beginBackgroundTask() {
     if backgroundTask != .invalid { return }
-    backgroundTask = UIApplication.shared.beginBackgroundTask(withName: "KelivoBackgroundGeneration") { [weak self] in
+    backgroundTask = UIApplication.shared.beginBackgroundTask(withName: "KelivoMaxBackgroundGeneration") { [weak self] in
       self?.endBackgroundTask()
     }
   }
@@ -294,7 +294,7 @@ private final class IosBackgroundGenerationHandler {
     content.title = title
     content.body = body
     content.sound = .default
-    let request = UNNotificationRequest(identifier: "kelivo.background-generation.\(Date().timeIntervalSince1970)", content: content, trigger: nil)
+    let request = UNNotificationRequest(identifier: "kelivo-max.background-generation.\(Date().timeIntervalSince1970)", content: content, trigger: nil)
     UNUserNotificationCenter.current().add(request)
   }
 

@@ -3,10 +3,10 @@
 import 'dart:io';
 
 import 'package:hive/hive.dart';
-import 'package:Kelivo/core/models/sync_config.dart';
-import 'package:Kelivo/core/models/sync_enums.dart';
-import 'package:Kelivo/core/services/sync/sync_credential_store.dart';
-import 'package:Kelivo/core/services/sync/sync_ledger.dart';
+import 'package:kelivo_max/core/models/sync_config.dart';
+import 'package:kelivo_max/core/models/sync_enums.dart';
+import 'package:kelivo_max/core/services/sync/sync_credential_store.dart';
+import 'package:kelivo_max/core/services/sync/sync_ledger.dart';
 
 /// Preview result for incognito wipe — shows what would be deleted.
 class IncognitoWipePreview {

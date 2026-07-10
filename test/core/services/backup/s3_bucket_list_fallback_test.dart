@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:Kelivo/core/models/backup.dart';
-import 'package:Kelivo/core/services/backup/s3_client.dart';
+import 'package:kelivo_max/core/models/backup.dart';
+import 'package:kelivo_max/core/services/backup/s3_client.dart';
 
 S3Config _config(HttpServer server) {
   return S3Config(

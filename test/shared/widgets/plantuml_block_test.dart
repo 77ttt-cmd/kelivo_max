@@ -1,5 +1,5 @@
-import 'package:Kelivo/l10n/app_localizations.dart';
-import 'package:Kelivo/shared/widgets/plantuml_block.dart';
+import 'package:kelivo_max/l10n/app_localizations.dart';
+import 'package:kelivo_max/shared/widgets/plantuml_block.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;

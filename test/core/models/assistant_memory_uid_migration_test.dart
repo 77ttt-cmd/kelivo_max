@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:Kelivo/core/models/assistant_memory.dart';
+import 'package:kelivo_max/core/models/assistant_memory.dart';
 
 void main() {
   group('AssistantMemory uid migration', () {

@@ -7,8 +7,8 @@ import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'package:test/test.dart';
 import 'package:web_socket_channel/io.dart';
 
-import 'package:kelivo_sync_server/routes/ws.dart';
-import 'package:kelivo_sync_server/services/relay_service.dart';
+import 'package:kelivo_max_sync_server/routes/ws.dart';
+import 'package:kelivo_max_sync_server/services/relay_service.dart';
 
 void main() {
   const testSecret = 'test-jwt-secret-for-ws';

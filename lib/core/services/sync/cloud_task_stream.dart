@@ -4,8 +4,8 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-import 'package:Kelivo/core/services/sync/sync_api_client.dart';
-import 'package:Kelivo/core/services/sync/sync_credential_store.dart';
+import 'package:kelivo_max/core/services/sync/sync_api_client.dart';
+import 'package:kelivo_max/core/services/sync/sync_credential_store.dart';
 
 /// Connects to the backend WebSocket relay to receive live cloud task events.
 ///

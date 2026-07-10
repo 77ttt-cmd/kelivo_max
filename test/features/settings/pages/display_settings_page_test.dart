@@ -1,6 +1,6 @@
-import 'package:Kelivo/core/providers/settings_provider.dart';
-import 'package:Kelivo/features/settings/pages/display_settings_page.dart';
-import 'package:Kelivo/l10n/app_localizations.dart';
+import 'package:kelivo_max/core/providers/settings_provider.dart';
+import 'package:kelivo_max/features/settings/pages/display_settings_page.dart';
+import 'package:kelivo_max/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';

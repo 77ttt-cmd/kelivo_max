@@ -3731,7 +3731,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aboutPageEasterEggButton => 'Nice!';
 
   @override
-  String get aboutPageAppName => 'Kelivo';
+  String get aboutPageAppName => 'Kelivo Max';
 
   @override
   String get aboutPageAppDescription => 'Open-source AI Assistant';

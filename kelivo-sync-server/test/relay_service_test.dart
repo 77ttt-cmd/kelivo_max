@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:test/test.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-import 'package:kelivo_sync_server/services/relay_service.dart';
+import 'package:kelivo_max_sync_server/services/relay_service.dart';
 
 /// A minimal fake [WebSocketChannel] for testing [RelayService].
 ///

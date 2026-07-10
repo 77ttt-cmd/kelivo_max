@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:Kelivo/theme/app_font_weights.dart';
+import 'package:kelivo_max/theme/app_font_weights.dart';
 
 class IosFormTextField extends StatelessWidget {
   const IosFormTextField({

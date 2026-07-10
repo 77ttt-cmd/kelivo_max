@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:Kelivo/core/models/chat_message.dart';
-import 'package:Kelivo/core/models/conversation.dart';
-import 'package:Kelivo/features/home/controllers/chat_actions.dart';
+import 'package:kelivo_max/core/models/chat_message.dart';
+import 'package:kelivo_max/core/models/conversation.dart';
+import 'package:kelivo_max/features/home/controllers/chat_actions.dart';
 
 ChatMessage _message({
   required String id,

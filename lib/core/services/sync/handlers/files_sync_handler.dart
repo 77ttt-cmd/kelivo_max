@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
-import 'package:Kelivo/core/models/sync_enums.dart';
-import 'package:Kelivo/core/services/sync/sync_api_client.dart';
-import 'package:Kelivo/core/services/sync/sync_category_handler.dart';
-import 'package:Kelivo/core/services/sync/sync_ledger.dart';
-import 'package:Kelivo/utils/app_directories.dart';
+import 'package:kelivo_max/core/models/sync_enums.dart';
+import 'package:kelivo_max/core/services/sync/sync_api_client.dart';
+import 'package:kelivo_max/core/services/sync/sync_category_handler.dart';
+import 'package:kelivo_max/core/services/sync/sync_ledger.dart';
+import 'package:kelivo_max/utils/app_directories.dart';
 
 /// Sync handler for user files (images, avatars, attachments, etc.).
 ///

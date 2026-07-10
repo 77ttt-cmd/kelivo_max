@@ -1,4 +1,4 @@
-import 'package:Kelivo/core/services/tts/tts_text_chunker.dart';
+import 'package:kelivo_max/core/services/tts/tts_text_chunker.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

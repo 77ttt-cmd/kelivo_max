@@ -4,8 +4,8 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:test/test.dart';
 
-import 'package:kelivo_sync_server/models/user.dart';
-import 'package:kelivo_sync_server/routes/auth.dart';
+import 'package:kelivo_max_sync_server/models/user.dart';
+import 'package:kelivo_max_sync_server/routes/auth.dart';
 
 void main() {
   group('User model', () {

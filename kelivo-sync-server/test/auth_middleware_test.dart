@@ -6,7 +6,7 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'package:test/test.dart';
 
-import 'package:kelivo_sync_server/middleware/auth_middleware.dart';
+import 'package:kelivo_max_sync_server/middleware/auth_middleware.dart';
 
 /// Helper: builds a pipeline with authMiddleware protecting a /me endpoint.
 Handler _buildProtectedHandler() {

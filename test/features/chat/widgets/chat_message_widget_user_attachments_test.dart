@@ -1,8 +1,8 @@
-import 'package:Kelivo/core/models/chat_message.dart';
-import 'package:Kelivo/core/providers/settings_provider.dart';
-import 'package:Kelivo/core/providers/user_provider.dart';
-import 'package:Kelivo/features/chat/widgets/chat_message_widget.dart';
-import 'package:Kelivo/l10n/app_localizations.dart';
+import 'package:kelivo_max/core/models/chat_message.dart';
+import 'package:kelivo_max/core/providers/settings_provider.dart';
+import 'package:kelivo_max/core/providers/user_provider.dart';
+import 'package:kelivo_max/features/chat/widgets/chat_message_widget.dart';
+import 'package:kelivo_max/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';

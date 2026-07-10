@@ -1,5 +1,5 @@
-name: kelivo_sync_server
-description: Kelivo cloud sync backend server.
+name: kelivo_max_sync_server
+description: Kelivo Max cloud sync backend server.
 version: 0.1.0
 publish_to: none
 

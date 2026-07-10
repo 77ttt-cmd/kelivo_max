@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:cryptography/cryptography.dart';
 import 'package:test/test.dart';
 
-import 'package:kelivo_sync_server/services/encryption_service.dart';
+import 'package:kelivo_max_sync_server/services/encryption_service.dart';
 
 void main() {
   // A deterministic 32-byte test master key (hex-encoded).

@@ -3596,7 +3596,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aboutPageEasterEggButton => '好的';
 
   @override
-  String get aboutPageAppName => 'Kelivo';
+  String get aboutPageAppName => 'Kelivo Max';
 
   @override
   String get aboutPageAppDescription => '开源AI 助手';
@@ -9031,7 +9031,7 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String get aboutPageEasterEggButton => '好的';
 
   @override
-  String get aboutPageAppName => 'Kelivo';
+  String get aboutPageAppName => 'Kelivo Max';
 
   @override
   String get aboutPageAppDescription => '开源 AI 助手';
@@ -14464,7 +14464,7 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get aboutPageEasterEggButton => '好的';
 
   @override
-  String get aboutPageAppName => 'Kelivo';
+  String get aboutPageAppName => 'Kelivo Max';
 
   @override
   String get aboutPageAppDescription => '開源 AI 助理';

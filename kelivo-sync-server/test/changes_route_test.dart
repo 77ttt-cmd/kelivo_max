@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:shelf/shelf.dart';
 import 'package:test/test.dart';
 
-import 'package:kelivo_sync_server/routes/changes.dart';
+import 'package:kelivo_max_sync_server/routes/changes.dart';
 
 /// Builds a handler that simulates auth by injecting userId into context,
 /// then delegates to the changesRouter.

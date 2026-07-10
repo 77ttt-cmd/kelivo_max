@@ -6983,7 +6983,7 @@ abstract class AppLocalizations {
   /// No description provided for @aboutPageAppName.
   ///
   /// In en, this message translates to:
-  /// **'Kelivo'**
+  /// **'Kelivo Max'**
   String get aboutPageAppName;
 
   /// No description provided for @aboutPageAppDescription.
