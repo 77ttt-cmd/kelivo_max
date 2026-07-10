@@ -112,6 +112,17 @@ class AssistantEntryActions {
             await _duplicateAssistantFromMenu(context, assistant);
           },
         ),
+        DesktopContextMenuItem(
+          icon: assistant.localOnly ? Lucide.Cloud : Lucide.CloudOff,
+          label: l10n.syncMarkLocalOnly,
+          onTap: () async {
+            beforeAction?.call();
+            await context.read<AssistantProvider>().setAssistantLocalOnly(
+              assistant.id,
+              !assistant.localOnly,
+            );
+          },
+        ),
         if (hasTag)
           DesktopContextMenuItem(
             icon: Lucide.Eraser,
@@ -223,6 +234,19 @@ class AssistantEntryActions {
                   beforeAction?.call();
                   await _duplicateAssistantFromMenu(context, assistant);
                 }),
+                row(
+                  l10n.syncMarkLocalOnly,
+                  assistant.localOnly ? Lucide.Cloud : Lucide.CloudOff,
+                  () async {
+                    beforeAction?.call();
+                    await context
+                        .read<AssistantProvider>()
+                        .setAssistantLocalOnly(
+                          assistant.id,
+                          !assistant.localOnly,
+                        );
+                  },
+                ),
                 if (hasTag)
                   row(l10n.assistantTagsClearTag, Lucide.Eraser, () async {
                     beforeAction?.call();

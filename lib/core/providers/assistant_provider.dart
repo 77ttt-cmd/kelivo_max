@@ -481,6 +481,16 @@ class AssistantProvider extends ChangeNotifier {
     await updateAssistant(a.copyWith(searchEnabled: enabled));
   }
 
+  Future<void> setAssistantLocalOnly(String assistantId, bool localOnly) async {
+    final idx = _assistants.indexWhere((a) => a.id == assistantId);
+    if (idx == -1) return;
+    final a = _assistants[idx];
+    if (a.localOnly == localOnly) return;
+    _assistants[idx] = a.copyWith(localOnly: localOnly);
+    await _persist();
+    notifyListeners();
+  }
+
   Future<void> reorderAssistantRegex({
     required String assistantId,
     required int oldIndex,

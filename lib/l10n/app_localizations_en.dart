@@ -5537,4 +5537,124 @@ class AppLocalizationsEn extends AppLocalizations {
   String debugPageManyMessagesSeedText(String role, int index) {
     return '$role message #$index: quick random debug sample for testing list rendering, scrolling stability, message grouping, and conversation history performance.';
   }
+
+  @override
+  String get syncPageTitle => 'Cloud Sync';
+
+  @override
+  String get syncServerUrl => 'Server URL';
+
+  @override
+  String get syncUsername => 'Username';
+
+  @override
+  String get syncPassword => 'Password';
+
+  @override
+  String get syncEnableLabel => 'Enable Sync';
+
+  @override
+  String get syncDirectionLabel => 'Sync Direction';
+
+  @override
+  String get syncDirectionPullOnly => 'Pull Only';
+
+  @override
+  String get syncDirectionBidirectional => 'Bidirectional';
+
+  @override
+  String get syncCategoryChats => 'Chats';
+
+  @override
+  String get syncCategoryProviders => 'Providers';
+
+  @override
+  String get syncCategoryAssistants => 'Assistants';
+
+  @override
+  String get syncCategoryQuickPhrases => 'Quick Phrases';
+
+  @override
+  String get syncCategoryMcp => 'MCP Servers';
+
+  @override
+  String get syncCategorySearchServices => 'Search Services';
+
+  @override
+  String get syncCategoryTtsServices => 'TTS Services';
+
+  @override
+  String get syncCategorySettings => 'Settings';
+
+  @override
+  String get syncCategoryFiles => 'Files';
+
+  @override
+  String get syncCloudExecutionLabel => 'Cloud Execution';
+
+  @override
+  String get syncCloudExecutionHint =>
+      'Run generation tasks on the server instead of locally';
+
+  @override
+  String get syncCloudBackgroundLabel => 'Cloud Background Execution';
+
+  @override
+  String get syncCloudBackgroundHint =>
+      'Tasks continue running on the server when app is closed';
+
+  @override
+  String get syncNowButton => 'Sync Now';
+
+  @override
+  String get syncTestConnectionButton => 'Test Connection';
+
+  @override
+  String get syncStatusIdle => 'Idle';
+
+  @override
+  String get syncStatusSyncing => 'Syncing…';
+
+  @override
+  String get syncStatusError => 'Sync Error';
+
+  @override
+  String get syncMarkLocalOnly => 'Mark as Local Only';
+
+  @override
+  String get syncKeyEncryptionNotice =>
+      'API keys will be encrypted with server-side KMS before upload';
+
+  @override
+  String get syncIncognitoWipeButton => 'Incognito Wipe';
+
+  @override
+  String get syncIncognitoWipeConfirmTitle => 'Confirm Incognito Wipe';
+
+  @override
+  String get syncIncognitoWipeConfirmBody =>
+      'This will delete all synced data from this device. Cloud copies will not be affected. This action is irreversible.';
+
+  @override
+  String get syncIncognitoWipeConfirmOk => 'Wipe';
+
+  @override
+  String get syncIncognitoWipeCancel => 'Cancel';
+
+  @override
+  String get syncIncognitoWipeDone => 'Incognito wipe completed';
+
+  @override
+  String get syncLoginButton => 'Login';
+
+  @override
+  String get syncLogoutButton => 'Logout';
+
+  @override
+  String syncLoggedInStatus(String username) {
+    return 'Logged in as $username';
+  }
+
+  @override
+  String get syncRegisterButton => 'Register';
 }

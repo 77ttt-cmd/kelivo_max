@@ -1955,5 +1955,50 @@
         "type": "int"
       }
     }
-  }
+  },
+  "syncPageTitle": "雲端同步",
+  "syncServerUrl": "伺服器位址",
+  "syncUsername": "使用者名稱",
+  "syncPassword": "密碼",
+  "syncEnableLabel": "啟用同步",
+  "syncDirectionLabel": "同步方向",
+  "syncDirectionPullOnly": "僅拉取",
+  "syncDirectionBidirectional": "雙向同步",
+  "syncCategoryChats": "聊天記錄",
+  "syncCategoryProviders": "服務商",
+  "syncCategoryAssistants": "助手",
+  "syncCategoryQuickPhrases": "快捷短語",
+  "syncCategoryMcp": "MCP 伺服器",
+  "syncCategorySearchServices": "搜尋服務",
+  "syncCategoryTtsServices": "語音合成服務",
+  "syncCategorySettings": "設定",
+  "syncCategoryFiles": "檔案",
+  "syncCloudExecutionLabel": "雲端執行",
+  "syncCloudExecutionHint": "在伺服器端執行生成任務，而非本機",
+  "syncCloudBackgroundLabel": "雲端背景執行",
+  "syncCloudBackgroundHint": "關閉應用程式後任務在伺服器端繼續執行",
+  "syncNowButton": "立即同步",
+  "syncTestConnectionButton": "測試連線",
+  "syncStatusIdle": "閒置",
+  "syncStatusSyncing": "同步中…",
+  "syncStatusError": "同步出錯",
+  "syncMarkLocalOnly": "標記為僅限本機",
+  "syncKeyEncryptionNotice": "API 金鑰將透過伺服器端 KMS 加密後再上傳",
+  "syncIncognitoWipeButton": "無痕清除",
+  "syncIncognitoWipeConfirmTitle": "確認無痕清除",
+  "syncIncognitoWipeConfirmBody": "這將刪除此裝置上所有已同步的資料。雲端副本不受影響。此操作不可撤銷。",
+  "syncIncognitoWipeConfirmOk": "清除",
+  "syncIncognitoWipeCancel": "取消",
+  "syncIncognitoWipeDone": "無痕清除已完成",
+  "syncLoginButton": "登入",
+  "syncLogoutButton": "登出",
+  "syncLoggedInStatus": "已登入為 {username}",
+  "@syncLoggedInStatus": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+  "syncRegisterButton": "註冊"
 }

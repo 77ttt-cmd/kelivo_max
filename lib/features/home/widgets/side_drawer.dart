@@ -191,7 +191,9 @@ class _SideDrawerState extends State<SideDrawer> with TickerProviderStateMixin {
   }) async {
     final l10n = AppLocalizations.of(context)!;
     final chatService = context.read<ChatService>();
-    final isPinned = chatService.getConversation(chat.id)?.isPinned ?? false;
+    final conv = chatService.getConversation(chat.id);
+    final isPinned = conv?.isPinned ?? false;
+    final isLocalOnly = conv?.localOnly ?? false;
     final isDesktop =
         defaultTargetPlatform == TargetPlatform.macOS ||
         defaultTargetPlatform == TargetPlatform.windows ||
@@ -216,6 +218,13 @@ class _SideDrawerState extends State<SideDrawer> with TickerProviderStateMixin {
             label: isPinned ? l10n.sideDrawerMenuUnpin : l10n.sideDrawerMenuPin,
             onTap: () async {
               await chatService.togglePinConversation(chat.id);
+            },
+          ),
+          DesktopContextMenuItem(
+            icon: isLocalOnly ? Lucide.Cloud : Lucide.CloudOff,
+            label: l10n.syncMarkLocalOnly,
+            onTap: () async {
+              await chatService.setConversationLocalOnly(chat.id, !isLocalOnly);
             },
           ),
           DesktopContextMenuItem(
@@ -401,6 +410,16 @@ class _SideDrawerState extends State<SideDrawer> with TickerProviderStateMixin {
                           : l10n.sideDrawerMenuPin,
                       action: () async {
                         await chatService.togglePinConversation(chat.id);
+                      },
+                    ),
+                    row(
+                      icon: isLocalOnly ? Lucide.Cloud : Lucide.CloudOff,
+                      label: l10n.syncMarkLocalOnly,
+                      action: () async {
+                        await chatService.setConversationLocalOnly(
+                          chat.id,
+                          !isLocalOnly,
+                        );
                       },
                     ),
                     row(
@@ -3145,6 +3164,7 @@ class _SideDrawerState extends State<SideDrawer> with TickerProviderStateMixin {
           textColor: textBase2,
           embedded: widget.embedded,
           selected: ap2.currentAssistantId == a.id,
+          localOnly: a.localOnly,
           onTap: () => _handleSelectAssistant(a),
           onEditTap: () => _openAssistantSettings(a.id),
           onLongPress: () => _showAssistantItemMenu(a),
@@ -3396,6 +3416,11 @@ class _SideDrawerState extends State<SideDrawer> with TickerProviderStateMixin {
                           loading: widget.loadingConversationIds.contains(
                             pinnedList[i].id,
                           ),
+                          localOnly:
+                              chatService
+                                  .getConversation(pinnedList[i].id)
+                                  ?.localOnly ??
+                              false,
                           onTap: () {
                             final closeDrawer = !context
                                 .read<SettingsProvider>()
@@ -3461,6 +3486,11 @@ class _SideDrawerState extends State<SideDrawer> with TickerProviderStateMixin {
                           loading: widget.loadingConversationIds.contains(
                             group.items[j].id,
                           ),
+                          localOnly:
+                              chatService
+                                  .getConversation(group.items[j].id)
+                                  ?.localOnly ??
+                              false,
                           onTap: () {
                             final closeDrawer = !context
                                 .read<SettingsProvider>()
@@ -3520,6 +3550,7 @@ class _ChatTile extends StatefulWidget {
     this.onSecondaryTap,
     this.selected = false,
     this.loading = false,
+    this.localOnly = false,
   });
 
   final ChatItem chat;
@@ -3529,6 +3560,7 @@ class _ChatTile extends StatefulWidget {
   final void Function(Offset globalPosition)? onSecondaryTap;
   final bool selected;
   final bool loading;
+  final bool localOnly;
 
   @override
   State<_ChatTile> createState() => _ChatTileState();
@@ -3611,6 +3643,14 @@ class _ChatTileState extends State<_ChatTile> {
                     ),
                   ),
                 ),
+                if (widget.localOnly) ...[
+                  const SizedBox(width: 4),
+                  Icon(
+                    Lucide.CloudOff,
+                    size: 14,
+                    color: widget.textColor.withValues(alpha: 0.45),
+                  ),
+                ],
                 if (widget.loading) ...[
                   const SizedBox(width: 8),
                   _LoadingDot(),
@@ -4030,6 +4070,7 @@ class _AssistantInlineTile extends StatefulWidget {
     this.onLongPress,
     this.onSecondaryTapDown,
     this.selected = false,
+    this.localOnly = false,
   });
 
   final Widget avatar;
@@ -4041,6 +4082,7 @@ class _AssistantInlineTile extends StatefulWidget {
   final VoidCallback? onLongPress;
   final void Function(Offset globalPosition)? onSecondaryTapDown;
   final bool selected;
+  final bool localOnly;
 
   @override
   State<_AssistantInlineTile> createState() => _AssistantInlineTileState();
@@ -4102,6 +4144,14 @@ class _AssistantInlineTileState extends State<_AssistantInlineTile> {
                 ),
               ),
             ),
+            if (widget.localOnly) ...[
+              const SizedBox(width: 4),
+              Icon(
+                Lucide.CloudOff,
+                size: 14,
+                color: widget.textColor.withValues(alpha: 0.45),
+              ),
+            ],
             if (!_isDesktop) ...[
               const SizedBox(width: 8),
               IosIconButton(

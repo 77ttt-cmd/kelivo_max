@@ -2378,5 +2378,50 @@
         "type": "int"
       }
     }
-  }
+  },
+  "syncPageTitle": "Cloud Sync",
+  "syncServerUrl": "Server URL",
+  "syncUsername": "Username",
+  "syncPassword": "Password",
+  "syncEnableLabel": "Enable Sync",
+  "syncDirectionLabel": "Sync Direction",
+  "syncDirectionPullOnly": "Pull Only",
+  "syncDirectionBidirectional": "Bidirectional",
+  "syncCategoryChats": "Chats",
+  "syncCategoryProviders": "Providers",
+  "syncCategoryAssistants": "Assistants",
+  "syncCategoryQuickPhrases": "Quick Phrases",
+  "syncCategoryMcp": "MCP Servers",
+  "syncCategorySearchServices": "Search Services",
+  "syncCategoryTtsServices": "TTS Services",
+  "syncCategorySettings": "Settings",
+  "syncCategoryFiles": "Files",
+  "syncCloudExecutionLabel": "Cloud Execution",
+  "syncCloudExecutionHint": "Run generation tasks on the server instead of locally",
+  "syncCloudBackgroundLabel": "Cloud Background Execution",
+  "syncCloudBackgroundHint": "Tasks continue running on the server when app is closed",
+  "syncNowButton": "Sync Now",
+  "syncTestConnectionButton": "Test Connection",
+  "syncStatusIdle": "Idle",
+  "syncStatusSyncing": "Syncing…",
+  "syncStatusError": "Sync Error",
+  "syncMarkLocalOnly": "Mark as Local Only",
+  "syncKeyEncryptionNotice": "API keys will be encrypted with server-side KMS before upload",
+  "syncIncognitoWipeButton": "Incognito Wipe",
+  "syncIncognitoWipeConfirmTitle": "Confirm Incognito Wipe",
+  "syncIncognitoWipeConfirmBody": "This will delete all synced data from this device. Cloud copies will not be affected. This action is irreversible.",
+  "syncIncognitoWipeConfirmOk": "Wipe",
+  "syncIncognitoWipeCancel": "Cancel",
+  "syncIncognitoWipeDone": "Incognito wipe completed",
+  "syncLoginButton": "Login",
+  "syncLogoutButton": "Logout",
+  "syncLoggedInStatus": "Logged in as {username}",
+  "@syncLoggedInStatus": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+  "syncRegisterButton": "Register"
 }

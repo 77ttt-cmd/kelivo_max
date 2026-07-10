@@ -10189,6 +10189,234 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{role} message #{index}: quick random debug sample for testing list rendering, scrolling stability, message grouping, and conversation history performance.'**
   String debugPageManyMessagesSeedText(String role, int index);
+
+  /// No description provided for @syncPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud Sync'**
+  String get syncPageTitle;
+
+  /// No description provided for @syncServerUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Server URL'**
+  String get syncServerUrl;
+
+  /// No description provided for @syncUsername.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get syncUsername;
+
+  /// No description provided for @syncPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get syncPassword;
+
+  /// No description provided for @syncEnableLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Sync'**
+  String get syncEnableLabel;
+
+  /// No description provided for @syncDirectionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync Direction'**
+  String get syncDirectionLabel;
+
+  /// No description provided for @syncDirectionPullOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Pull Only'**
+  String get syncDirectionPullOnly;
+
+  /// No description provided for @syncDirectionBidirectional.
+  ///
+  /// In en, this message translates to:
+  /// **'Bidirectional'**
+  String get syncDirectionBidirectional;
+
+  /// No description provided for @syncCategoryChats.
+  ///
+  /// In en, this message translates to:
+  /// **'Chats'**
+  String get syncCategoryChats;
+
+  /// No description provided for @syncCategoryProviders.
+  ///
+  /// In en, this message translates to:
+  /// **'Providers'**
+  String get syncCategoryProviders;
+
+  /// No description provided for @syncCategoryAssistants.
+  ///
+  /// In en, this message translates to:
+  /// **'Assistants'**
+  String get syncCategoryAssistants;
+
+  /// No description provided for @syncCategoryQuickPhrases.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Phrases'**
+  String get syncCategoryQuickPhrases;
+
+  /// No description provided for @syncCategoryMcp.
+  ///
+  /// In en, this message translates to:
+  /// **'MCP Servers'**
+  String get syncCategoryMcp;
+
+  /// No description provided for @syncCategorySearchServices.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Services'**
+  String get syncCategorySearchServices;
+
+  /// No description provided for @syncCategoryTtsServices.
+  ///
+  /// In en, this message translates to:
+  /// **'TTS Services'**
+  String get syncCategoryTtsServices;
+
+  /// No description provided for @syncCategorySettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get syncCategorySettings;
+
+  /// No description provided for @syncCategoryFiles.
+  ///
+  /// In en, this message translates to:
+  /// **'Files'**
+  String get syncCategoryFiles;
+
+  /// No description provided for @syncCloudExecutionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud Execution'**
+  String get syncCloudExecutionLabel;
+
+  /// No description provided for @syncCloudExecutionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Run generation tasks on the server instead of locally'**
+  String get syncCloudExecutionHint;
+
+  /// No description provided for @syncCloudBackgroundLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud Background Execution'**
+  String get syncCloudBackgroundLabel;
+
+  /// No description provided for @syncCloudBackgroundHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks continue running on the server when app is closed'**
+  String get syncCloudBackgroundHint;
+
+  /// No description provided for @syncNowButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync Now'**
+  String get syncNowButton;
+
+  /// No description provided for @syncTestConnectionButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Test Connection'**
+  String get syncTestConnectionButton;
+
+  /// No description provided for @syncStatusIdle.
+  ///
+  /// In en, this message translates to:
+  /// **'Idle'**
+  String get syncStatusIdle;
+
+  /// No description provided for @syncStatusSyncing.
+  ///
+  /// In en, this message translates to:
+  /// **'Syncing…'**
+  String get syncStatusSyncing;
+
+  /// No description provided for @syncStatusError.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync Error'**
+  String get syncStatusError;
+
+  /// No description provided for @syncMarkLocalOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as Local Only'**
+  String get syncMarkLocalOnly;
+
+  /// No description provided for @syncKeyEncryptionNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'API keys will be encrypted with server-side KMS before upload'**
+  String get syncKeyEncryptionNotice;
+
+  /// No description provided for @syncIncognitoWipeButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Incognito Wipe'**
+  String get syncIncognitoWipeButton;
+
+  /// No description provided for @syncIncognitoWipeConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Incognito Wipe'**
+  String get syncIncognitoWipeConfirmTitle;
+
+  /// No description provided for @syncIncognitoWipeConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This will delete all synced data from this device. Cloud copies will not be affected. This action is irreversible.'**
+  String get syncIncognitoWipeConfirmBody;
+
+  /// No description provided for @syncIncognitoWipeConfirmOk.
+  ///
+  /// In en, this message translates to:
+  /// **'Wipe'**
+  String get syncIncognitoWipeConfirmOk;
+
+  /// No description provided for @syncIncognitoWipeCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get syncIncognitoWipeCancel;
+
+  /// No description provided for @syncIncognitoWipeDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Incognito wipe completed'**
+  String get syncIncognitoWipeDone;
+
+  /// No description provided for @syncLoginButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get syncLoginButton;
+
+  /// No description provided for @syncLogoutButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get syncLogoutButton;
+
+  /// No description provided for @syncLoggedInStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Logged in as {username}'**
+  String syncLoggedInStatus(String username);
+
+  /// No description provided for @syncRegisterButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get syncRegisterButton;
 }
 
 class _AppLocalizationsDelegate

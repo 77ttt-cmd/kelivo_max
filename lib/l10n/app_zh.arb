@@ -1955,5 +1955,50 @@
         "type": "int"
       }
     }
-  }
+  },
+  "syncPageTitle": "云同步",
+  "syncServerUrl": "服务器地址",
+  "syncUsername": "用户名",
+  "syncPassword": "密码",
+  "syncEnableLabel": "启用同步",
+  "syncDirectionLabel": "同步方向",
+  "syncDirectionPullOnly": "仅拉取",
+  "syncDirectionBidirectional": "双向同步",
+  "syncCategoryChats": "聊天记录",
+  "syncCategoryProviders": "服务商",
+  "syncCategoryAssistants": "助手",
+  "syncCategoryQuickPhrases": "快捷短语",
+  "syncCategoryMcp": "MCP 服务器",
+  "syncCategorySearchServices": "搜索服务",
+  "syncCategoryTtsServices": "语音合成服务",
+  "syncCategorySettings": "设置",
+  "syncCategoryFiles": "文件",
+  "syncCloudExecutionLabel": "云端执行",
+  "syncCloudExecutionHint": "在服务器端运行生成任务，而非本地",
+  "syncCloudBackgroundLabel": "云端后台执行",
+  "syncCloudBackgroundHint": "关闭应用后任务在服务器端继续运行",
+  "syncNowButton": "立即同步",
+  "syncTestConnectionButton": "测试连接",
+  "syncStatusIdle": "空闲",
+  "syncStatusSyncing": "同步中…",
+  "syncStatusError": "同步出错",
+  "syncMarkLocalOnly": "标记为仅本地",
+  "syncKeyEncryptionNotice": "API 密钥将通过服务端 KMS 加密后再上传",
+  "syncIncognitoWipeButton": "无痕清除",
+  "syncIncognitoWipeConfirmTitle": "确认无痕清除",
+  "syncIncognitoWipeConfirmBody": "这将删除此设备上所有已同步的数据。云端副本不受影响。此操作不可撤销。",
+  "syncIncognitoWipeConfirmOk": "清除",
+  "syncIncognitoWipeCancel": "取消",
+  "syncIncognitoWipeDone": "无痕清除已完成",
+  "syncLoginButton": "登录",
+  "syncLogoutButton": "退出登录",
+  "syncLoggedInStatus": "已登录为 {username}",
+  "@syncLoggedInStatus": {
+    "placeholders": {
+      "username": {
+        "type": "String"
+      }
+    }
+  },
+  "syncRegisterButton": "注册"
 }

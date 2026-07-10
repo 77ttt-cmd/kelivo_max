@@ -5320,6 +5320,123 @@ class AppLocalizationsZh extends AppLocalizations {
   String debugPageManyMessagesSeedText(String role, int index) {
     return '$role 消息 #$index：快速随机调试样例，用于测试列表渲染、滚动稳定性、消息分组和会话历史性能。';
   }
+
+  @override
+  String get syncPageTitle => '云同步';
+
+  @override
+  String get syncServerUrl => '服务器地址';
+
+  @override
+  String get syncUsername => '用户名';
+
+  @override
+  String get syncPassword => '密码';
+
+  @override
+  String get syncEnableLabel => '启用同步';
+
+  @override
+  String get syncDirectionLabel => '同步方向';
+
+  @override
+  String get syncDirectionPullOnly => '仅拉取';
+
+  @override
+  String get syncDirectionBidirectional => '双向同步';
+
+  @override
+  String get syncCategoryChats => '聊天记录';
+
+  @override
+  String get syncCategoryProviders => '服务商';
+
+  @override
+  String get syncCategoryAssistants => '助手';
+
+  @override
+  String get syncCategoryQuickPhrases => '快捷短语';
+
+  @override
+  String get syncCategoryMcp => 'MCP 服务器';
+
+  @override
+  String get syncCategorySearchServices => '搜索服务';
+
+  @override
+  String get syncCategoryTtsServices => '语音合成服务';
+
+  @override
+  String get syncCategorySettings => '设置';
+
+  @override
+  String get syncCategoryFiles => '文件';
+
+  @override
+  String get syncCloudExecutionLabel => '云端执行';
+
+  @override
+  String get syncCloudExecutionHint => '在服务器端运行生成任务，而非本地';
+
+  @override
+  String get syncCloudBackgroundLabel => '云端后台执行';
+
+  @override
+  String get syncCloudBackgroundHint => '关闭应用后任务在服务器端继续运行';
+
+  @override
+  String get syncNowButton => '立即同步';
+
+  @override
+  String get syncTestConnectionButton => '测试连接';
+
+  @override
+  String get syncStatusIdle => '空闲';
+
+  @override
+  String get syncStatusSyncing => '同步中…';
+
+  @override
+  String get syncStatusError => '同步出错';
+
+  @override
+  String get syncMarkLocalOnly => '标记为仅本地';
+
+  @override
+  String get syncKeyEncryptionNotice => 'API 密钥将通过服务端 KMS 加密后再上传';
+
+  @override
+  String get syncIncognitoWipeButton => '无痕清除';
+
+  @override
+  String get syncIncognitoWipeConfirmTitle => '确认无痕清除';
+
+  @override
+  String get syncIncognitoWipeConfirmBody =>
+      '这将删除此设备上所有已同步的数据。云端副本不受影响。此操作不可撤销。';
+
+  @override
+  String get syncIncognitoWipeConfirmOk => '清除';
+
+  @override
+  String get syncIncognitoWipeCancel => '取消';
+
+  @override
+  String get syncIncognitoWipeDone => '无痕清除已完成';
+
+  @override
+  String get syncLoginButton => '登录';
+
+  @override
+  String get syncLogoutButton => '退出登录';
+
+  @override
+  String syncLoggedInStatus(String username) {
+    return '已登录为 $username';
+  }
+
+  @override
+  String get syncRegisterButton => '注册';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hans`).
@@ -10638,6 +10755,123 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
   String debugPageManyMessagesSeedText(String role, int index) {
     return '$role 消息 #$index：快速随机调试样例，用于测试列表渲染、滚动稳定性、消息分组和会话历史性能。';
   }
+
+  @override
+  String get syncPageTitle => '云同步';
+
+  @override
+  String get syncServerUrl => '服务器地址';
+
+  @override
+  String get syncUsername => '用户名';
+
+  @override
+  String get syncPassword => '密码';
+
+  @override
+  String get syncEnableLabel => '启用同步';
+
+  @override
+  String get syncDirectionLabel => '同步方向';
+
+  @override
+  String get syncDirectionPullOnly => '仅拉取';
+
+  @override
+  String get syncDirectionBidirectional => '双向同步';
+
+  @override
+  String get syncCategoryChats => '聊天记录';
+
+  @override
+  String get syncCategoryProviders => '服务商';
+
+  @override
+  String get syncCategoryAssistants => '助手';
+
+  @override
+  String get syncCategoryQuickPhrases => '快捷短语';
+
+  @override
+  String get syncCategoryMcp => 'MCP 服务器';
+
+  @override
+  String get syncCategorySearchServices => '搜索服务';
+
+  @override
+  String get syncCategoryTtsServices => '语音合成服务';
+
+  @override
+  String get syncCategorySettings => '设置';
+
+  @override
+  String get syncCategoryFiles => '文件';
+
+  @override
+  String get syncCloudExecutionLabel => '云端执行';
+
+  @override
+  String get syncCloudExecutionHint => '在服务器端运行生成任务，而非本地';
+
+  @override
+  String get syncCloudBackgroundLabel => '云端后台执行';
+
+  @override
+  String get syncCloudBackgroundHint => '关闭应用后任务在服务器端继续运行';
+
+  @override
+  String get syncNowButton => '立即同步';
+
+  @override
+  String get syncTestConnectionButton => '测试连接';
+
+  @override
+  String get syncStatusIdle => '空闲';
+
+  @override
+  String get syncStatusSyncing => '同步中…';
+
+  @override
+  String get syncStatusError => '同步出错';
+
+  @override
+  String get syncMarkLocalOnly => '标记为仅本地';
+
+  @override
+  String get syncKeyEncryptionNotice => 'API 密钥将通过服务端 KMS 加密后再上传';
+
+  @override
+  String get syncIncognitoWipeButton => '无痕清除';
+
+  @override
+  String get syncIncognitoWipeConfirmTitle => '确认无痕清除';
+
+  @override
+  String get syncIncognitoWipeConfirmBody =>
+      '这将删除此设备上所有已同步的数据。云端副本不受影响。此操作不可撤销。';
+
+  @override
+  String get syncIncognitoWipeConfirmOk => '清除';
+
+  @override
+  String get syncIncognitoWipeCancel => '取消';
+
+  @override
+  String get syncIncognitoWipeDone => '无痕清除已完成';
+
+  @override
+  String get syncLoginButton => '登录';
+
+  @override
+  String get syncLogoutButton => '退出登录';
+
+  @override
+  String syncLoggedInStatus(String username) {
+    return '已登录为 $username';
+  }
+
+  @override
+  String get syncRegisterButton => '注册';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -15956,4 +16190,121 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String debugPageManyMessagesSeedText(String role, int index) {
     return '$role 訊息 #$index：快速隨機調試樣例，用於測試列表渲染、捲動穩定性、訊息分組和會話歷史效能。';
   }
+
+  @override
+  String get syncPageTitle => '雲端同步';
+
+  @override
+  String get syncServerUrl => '伺服器位址';
+
+  @override
+  String get syncUsername => '使用者名稱';
+
+  @override
+  String get syncPassword => '密碼';
+
+  @override
+  String get syncEnableLabel => '啟用同步';
+
+  @override
+  String get syncDirectionLabel => '同步方向';
+
+  @override
+  String get syncDirectionPullOnly => '僅拉取';
+
+  @override
+  String get syncDirectionBidirectional => '雙向同步';
+
+  @override
+  String get syncCategoryChats => '聊天記錄';
+
+  @override
+  String get syncCategoryProviders => '服務商';
+
+  @override
+  String get syncCategoryAssistants => '助手';
+
+  @override
+  String get syncCategoryQuickPhrases => '快捷短語';
+
+  @override
+  String get syncCategoryMcp => 'MCP 伺服器';
+
+  @override
+  String get syncCategorySearchServices => '搜尋服務';
+
+  @override
+  String get syncCategoryTtsServices => '語音合成服務';
+
+  @override
+  String get syncCategorySettings => '設定';
+
+  @override
+  String get syncCategoryFiles => '檔案';
+
+  @override
+  String get syncCloudExecutionLabel => '雲端執行';
+
+  @override
+  String get syncCloudExecutionHint => '在伺服器端執行生成任務，而非本機';
+
+  @override
+  String get syncCloudBackgroundLabel => '雲端背景執行';
+
+  @override
+  String get syncCloudBackgroundHint => '關閉應用程式後任務在伺服器端繼續執行';
+
+  @override
+  String get syncNowButton => '立即同步';
+
+  @override
+  String get syncTestConnectionButton => '測試連線';
+
+  @override
+  String get syncStatusIdle => '閒置';
+
+  @override
+  String get syncStatusSyncing => '同步中…';
+
+  @override
+  String get syncStatusError => '同步出錯';
+
+  @override
+  String get syncMarkLocalOnly => '標記為僅限本機';
+
+  @override
+  String get syncKeyEncryptionNotice => 'API 金鑰將透過伺服器端 KMS 加密後再上傳';
+
+  @override
+  String get syncIncognitoWipeButton => '無痕清除';
+
+  @override
+  String get syncIncognitoWipeConfirmTitle => '確認無痕清除';
+
+  @override
+  String get syncIncognitoWipeConfirmBody =>
+      '這將刪除此裝置上所有已同步的資料。雲端副本不受影響。此操作不可撤銷。';
+
+  @override
+  String get syncIncognitoWipeConfirmOk => '清除';
+
+  @override
+  String get syncIncognitoWipeCancel => '取消';
+
+  @override
+  String get syncIncognitoWipeDone => '無痕清除已完成';
+
+  @override
+  String get syncLoginButton => '登入';
+
+  @override
+  String get syncLogoutButton => '登出';
+
+  @override
+  String syncLoggedInStatus(String username) {
+    return '已登入為 $username';
+  }
+
+  @override
+  String get syncRegisterButton => '註冊';
 }
