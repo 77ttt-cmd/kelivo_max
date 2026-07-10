@@ -1,4 +1,4 @@
-# Kelivo Sync Server
+# Kelivo Max Sync Server
 
 Backend server for Kelivo Max cloud sync.
 

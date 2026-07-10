@@ -1,6 +1,6 @@
 <div align="center">
-  <img src="assets/app_icon.png" alt="Kelivo Icon" width="100" />
-  <h1>Kelivo</h1>
+  <img src="assets/app_icon.png" alt="Kelivo Max Icon" width="100" />
+  <h1>Kelivo Max</h1>
 
 一个 Flutter LLM 聊天客户端
 
@@ -76,7 +76,7 @@
 
 ## ❤️ 致谢
 
-特别感谢 [RikkaHub](https://github.com/re-ovo/rikkahub) 项目提供的 UI 设计灵感。Kelivo 的界面设计深受 RikkaHub 优美且实用的设计启发。
+特别感谢 [RikkaHub](https://github.com/re-ovo/rikkahub) 项目提供的 UI 设计灵感。Kelivo Max 的界面设计深受 RikkaHub 优美且实用的设计启发。
 
 ## ⭐ Star History
 

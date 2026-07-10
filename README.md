@@ -1,6 +1,6 @@
 <div align="center">
-  <img src="assets/app_icon.png" alt="Kelivo Icon" width="100" />
-  <h1>Kelivo</h1>
+  <img src="assets/app_icon.png" alt="Kelivo Max Icon" width="100" />
+  <h1>Kelivo Max</h1>
 
 A Flutter LLM Chat Client
 
@@ -76,7 +76,7 @@ Pull Requests and Issues are welcome!
 
 ## ❤️ Acknowledgements
 
-Special thanks to the [RikkaHub](https://github.com/re-ovo/rikkahub) project for the UI design inspiration. Kelivo's interface design is heavily inspired by RikkaHub's beautiful and practical design.
+Special thanks to the [RikkaHub](https://github.com/re-ovo/rikkahub) project for the UI design inspiration. Kelivo Max's interface design is heavily inspired by RikkaHub's beautiful and practical design.
 
 ## ⭐ Star History
 
