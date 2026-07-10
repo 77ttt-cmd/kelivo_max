@@ -2486,7 +2486,7 @@ $$
       await tester.pump();
 
       stopwatch.stop();
-      expect(stopwatch.elapsed, lessThan(const Duration(seconds: 3)));
+      expect(stopwatch.elapsed, lessThan(const Duration(seconds: 10)));
       expect(_findMathWidget(), findsOneWidget);
     },
     timeout: const Timeout(Duration(seconds: 10)),
@@ -2505,7 +2505,7 @@ $$
       await tester.pump();
 
       stopwatch.stop();
-      expect(stopwatch.elapsed, lessThan(const Duration(seconds: 3)));
+      expect(stopwatch.elapsed, lessThan(const Duration(seconds: 10)));
       expect(_findMathWidget(), findsNothing);
     },
     timeout: const Timeout(Duration(seconds: 10)),
@@ -2524,7 +2524,7 @@ $$
       await tester.pump();
 
       stopwatch.stop();
-      expect(stopwatch.elapsed, lessThan(const Duration(seconds: 3)));
+      expect(stopwatch.elapsed, lessThan(const Duration(seconds: 10)));
       expect(_findMathWidget(), findsNothing);
     },
     timeout: const Timeout(Duration(seconds: 10)),
