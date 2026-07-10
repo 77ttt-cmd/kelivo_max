@@ -10,6 +10,9 @@ import '../../../core/providers/settings_provider.dart';
 import '../../../core/services/api/chat_api_service.dart';
 import '../../../core/services/chat/chat_service.dart';
 import '../../../core/services/ios_background_generation.dart';
+import '../../../core/services/sync/cloud_task_stream.dart';
+import '../../../core/services/sync/sync_api_client.dart';
+import '../../../core/services/sync/sync_credential_store.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../utils/assistant_regex.dart';
 import '../../../core/models/assistant_regex.dart';
@@ -994,6 +997,201 @@ class ChatActions {
 
   /// Execute generation with the given context.
   Future<void> _executeGeneration(stream_ctrl.GenerationContext ctx) async {
+    // --- Cloud execution branch ---
+    // When sync is enabled with cloud execution, submit the task to the
+    // server instead of running it locally.  Falls back to local execution
+    // if submission fails.
+    final syncConfig = ctx.settings.syncConfig;
+    if (syncConfig.enabled && syncConfig.cloudExecutionEnabled) {
+      try {
+        final credentialStore = SyncCredentialStore();
+        final apiClient = SyncApiClient(
+          serverUrl: syncConfig.serverUrl,
+          credentialStore: credentialStore,
+        );
+        try {
+          final providerSyncId = ctx.config.syncId;
+
+          final taskId = await apiClient.submitTask(
+            conversationId: ctx.assistantMessage.conversationId,
+            providerSyncId: providerSyncId,
+            messages: ctx.apiMessages,
+            parameters: {
+              'model': ctx.modelId,
+              'providerKey': ctx.providerKey,
+              'stream': ctx.streamOutput,
+              if (ctx.supportsReasoning) 'supportsReasoning': true,
+              if (ctx.enableReasoning) 'enableReasoning': true,
+            },
+          );
+
+          ctx.cloudExecution = true;
+          ctx.cloudTaskId = taskId;
+
+          await _consumeCloudTask(
+            taskId: taskId,
+            apiClient: apiClient,
+            credentialStore: credentialStore,
+            serverUrl: syncConfig.serverUrl,
+            ctx: ctx,
+          );
+        } finally {
+          apiClient.dispose();
+        }
+        return;
+      } catch (e) {
+        // Fall back to local execution on cloud submission error.
+        debugPrint('Cloud execution failed, falling back to local: $e');
+      }
+    }
+
+    // --- Local execution path (unchanged) ---
+    await _executeLocalGeneration(ctx);
+  }
+
+  /// Consume a cloud task via [CloudTaskStream] (WebSocket with polling
+  /// fallback), updating the assistant message incrementally.
+  Future<void> _consumeCloudTask({
+    required String taskId,
+    required SyncApiClient apiClient,
+    required SyncCredentialStore credentialStore,
+    required String serverUrl,
+    required stream_ctrl.GenerationContext ctx,
+  }) async {
+    final messageId = ctx.assistantMessage.id;
+    final conversationId = ctx.assistantMessage.conversationId;
+    var accumulatedContent = '';
+
+    // Register cloud task for reconnection on app restart.
+    chatService.registerCloudTask(messageId, taskId);
+
+    final taskStream = CloudTaskStream(
+      serverUrl: serverUrl,
+      taskId: taskId,
+      credentialStore: credentialStore,
+      apiClient: apiClient,
+    );
+
+    try {
+      await taskStream.connect();
+
+      await for (final event in taskStream.stream) {
+        switch (event) {
+          case CloudTaskChunk(:final content):
+            accumulatedContent += content;
+
+            // Update the streaming content notifier so the UI sees live
+            // content, and persist silently to avoid full widget rebuilds.
+            streamController.streamingContentNotifier.updateContent(
+              messageId,
+              accumulatedContent,
+              0,
+            );
+            await chatService.updateMessageSilent(
+              messageId,
+              content: accumulatedContent,
+            );
+
+            final chunkIndex = _messages.indexWhere((m) => m.id == messageId);
+            if (chunkIndex != -1) {
+              _messages[chunkIndex] = _messages[chunkIndex].copyWith(
+                content: accumulatedContent,
+              );
+            }
+
+          case CloudTaskCompleted(:final finalContent, :final totalTokens):
+            // Unregister cloud task — completed successfully.
+            chatService.unregisterCloudTask(messageId);
+
+            final content = finalContent.isNotEmpty
+                ? finalContent
+                : accumulatedContent;
+
+            await chatService.updateMessage(
+              messageId,
+              content: content,
+              totalTokens: totalTokens,
+              isStreaming: false,
+            );
+
+            final doneIndex = _messages.indexWhere((m) => m.id == messageId);
+            if (doneIndex != -1) {
+              _messages[doneIndex] = _messages[doneIndex].copyWith(
+                content: content,
+                totalTokens: totalTokens,
+                isStreaming: false,
+              );
+              onMessagesChanged?.call();
+            }
+
+            streamController.markStreamingEnded(messageId);
+            streamController.removeStreamingNotifier(messageId);
+            _setConversationLoading(conversationId, false);
+
+            onAssistantMessageFinished?.call(
+              ctx.assistantMessage.copyWith(
+                content: content,
+                totalTokens: totalTokens,
+                isStreaming: false,
+              ),
+            );
+
+            if (ctx.generateTitleOnFinish) {
+              onMaybeGenerateTitle?.call(conversationId);
+            }
+            onMaybeGenerateSummary?.call(conversationId);
+            onMaybeGenerateSuggestions?.call(conversationId);
+            onStreamFinished?.call();
+
+          case CloudTaskFailed(:final error):
+            // Unregister cloud task — failed.
+            chatService.unregisterCloudTask(messageId);
+
+            await chatService.updateMessage(
+              messageId,
+              content: error,
+              isStreaming: false,
+            );
+
+            final failIndex = _messages.indexWhere((m) => m.id == messageId);
+            if (failIndex != -1) {
+              _messages[failIndex] = _messages[failIndex].copyWith(
+                content: error,
+                isStreaming: false,
+              );
+              onMessagesChanged?.call();
+            }
+
+            streamController.markStreamingEnded(messageId);
+            streamController.removeStreamingNotifier(messageId);
+            _setConversationLoading(conversationId, false);
+
+            onStreamError?.call(error);
+            onStreamFinished?.call();
+        }
+      }
+    } catch (e) {
+      debugPrint('Cloud task stream error: $e');
+
+      // Unregister cloud task on unexpected error.
+      chatService.unregisterCloudTask(messageId);
+
+      streamController.markStreamingEnded(messageId);
+      streamController.removeStreamingNotifier(messageId);
+      _setConversationLoading(conversationId, false);
+
+      onStreamError?.call(e.toString());
+      onStreamFinished?.call();
+    } finally {
+      taskStream.dispose();
+    }
+  }
+
+  /// Local execution path for generation — extracted to keep [_executeGeneration]
+  /// readable after the cloud-execution branch was added.
+  Future<void> _executeLocalGeneration(
+    stream_ctrl.GenerationContext ctx,
+  ) async {
     final state = stream_ctrl.StreamingState(ctx);
     final assistant = ctx.assistant;
     final conversationId = state.conversationId;

@@ -1352,6 +1352,12 @@ class GenerationContext {
   final bool streamOutput;
   final bool ocrActive;
   final bool generateTitleOnFinish;
+
+  /// Whether this generation was routed to cloud execution.
+  bool cloudExecution = false;
+
+  /// Server-assigned task ID when [cloudExecution] is true.
+  String? cloudTaskId;
 }
 
 /// State object for streaming message generation.

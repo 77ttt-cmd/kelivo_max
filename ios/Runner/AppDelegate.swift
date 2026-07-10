@@ -11,6 +11,8 @@ private let backgroundProcessingIdentifier = "psyche.kelivo.background-generatio
 @objc class AppDelegate: FlutterAppDelegate {
   private let fileSaveHandler = NativeFileSaveHandler()
   private let backgroundGenerationHandler = IosBackgroundGenerationHandler()
+  private var apnsToken: String?
+  private var pushTokenChannel: FlutterMethodChannel?
 
   override func application(
     _ application: UIApplication,
@@ -56,8 +58,39 @@ private let backgroundProcessingIdentifier = "psyche.kelivo.background-generatio
       iosBackgroundChannel.setMethodCallHandler { [weak self] call, result in
         self?.backgroundGenerationHandler.handle(call: call, result: result)
       }
+
+      // APNs push token channel — Dart calls "getToken" to retrieve the token.
+      pushTokenChannel = FlutterMethodChannel(name: "app.push_token", binaryMessenger: controller.binaryMessenger)
+      pushTokenChannel?.setMethodCallHandler { [weak self] call, result in
+        if call.method == "getToken" {
+          result(self?.apnsToken)
+        } else {
+          result(FlutterMethodNotImplemented)
+        }
+      }
+
+      // Register for remote notifications so iOS gives us a device token.
+      application.registerForRemoteNotifications()
     }
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+  }
+
+  // MARK: - APNs token callbacks
+
+  override func application(
+    _ application: UIApplication,
+    didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+  ) {
+    // Convert raw token data to hex string.
+    apnsToken = deviceToken.map { String(format: "%02x", $0) }.joined()
+  }
+
+  override func application(
+    _ application: UIApplication,
+    didFailToRegisterForRemoteNotificationsWithError error: Error
+  ) {
+    NSLog("APNs registration failed: \(error.localizedDescription)")
+    apnsToken = nil
   }
 
   override func applicationDidBecomeActive(_ application: UIApplication) {
