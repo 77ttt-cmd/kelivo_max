@@ -51,6 +51,12 @@ class Conversation extends HiveObject {
   @HiveField(12)
   List<String> chatSuggestions;
 
+  @HiveField(13)
+  int? deletedAt;
+
+  @HiveField(14)
+  bool localOnly;
+
   Conversation({
     String? id,
     required this.title,
@@ -65,6 +71,8 @@ class Conversation extends HiveObject {
     this.summary,
     int? lastSummarizedMessageCount,
     List<String>? chatSuggestions,
+    this.deletedAt,
+    this.localOnly = false,
   }) : id = id ?? const Uuid().v4(),
        createdAt = createdAt ?? DateTime.now(),
        updatedAt = updatedAt ?? DateTime.now(),
@@ -89,6 +97,8 @@ class Conversation extends HiveObject {
     String? summary,
     int? lastSummarizedMessageCount,
     List<String>? chatSuggestions,
+    int? deletedAt,
+    bool? localOnly,
     bool clearSummary = false,
   }) {
     return Conversation(
@@ -106,6 +116,8 @@ class Conversation extends HiveObject {
       lastSummarizedMessageCount:
           lastSummarizedMessageCount ?? this.lastSummarizedMessageCount,
       chatSuggestions: chatSuggestions ?? this.chatSuggestions,
+      deletedAt: deletedAt ?? this.deletedAt,
+      localOnly: localOnly ?? this.localOnly,
     );
   }
 
@@ -124,6 +136,8 @@ class Conversation extends HiveObject {
       'summary': summary,
       'lastSummarizedMessageCount': lastSummarizedMessageCount,
       'chatSuggestions': chatSuggestions,
+      'deletedAt': deletedAt,
+      'localOnly': localOnly,
     };
   }
 
@@ -150,6 +164,8 @@ class Conversation extends HiveObject {
       chatSuggestions:
           (json['chatSuggestions'] as List?)?.cast<String>() ??
           const <String>[],
+      deletedAt: json['deletedAt'] as int?,
+      localOnly: json['localOnly'] as bool? ?? false,
     );
   }
 }

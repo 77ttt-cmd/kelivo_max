@@ -50,6 +50,10 @@ class Assistant {
   final List<PresetMessage> presetMessages;
   // Regex replacement rules
   final List<AssistantRegex> regexRules;
+  // Sync metadata
+  final int? updatedAt;
+  final int? deletedAt;
+  final bool localOnly;
 
   const Assistant({
     required this.id,
@@ -79,6 +83,9 @@ class Assistant {
     this.recentChatsSummaryMessageCount = defaultRecentChatsSummaryMessageCount,
     this.presetMessages = const <PresetMessage>[],
     this.regexRules = const <AssistantRegex>[],
+    this.updatedAt,
+    this.deletedAt,
+    this.localOnly = false,
   });
 
   Assistant copyWith({
@@ -116,6 +123,9 @@ class Assistant {
     bool clearThinkingBudget = false,
     bool clearMaxTokens = false,
     bool clearBackground = false,
+    int? updatedAt,
+    int? deletedAt,
+    bool? localOnly,
   }) {
     return Assistant(
       id: id ?? this.id,
@@ -151,6 +161,9 @@ class Assistant {
           recentChatsSummaryMessageCount ?? this.recentChatsSummaryMessageCount,
       presetMessages: presetMessages ?? this.presetMessages,
       regexRules: regexRules ?? this.regexRules,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      localOnly: localOnly ?? this.localOnly,
     );
   }
 
@@ -182,6 +195,9 @@ class Assistant {
     'recentChatsSummaryMessageCount': recentChatsSummaryMessageCount,
     'presetMessages': PresetMessage.encodeList(presetMessages),
     'regexRules': regexRules.map((e) => e.toJson()).toList(),
+    'updatedAt': updatedAt,
+    'deletedAt': deletedAt,
+    'localOnly': localOnly,
   };
 
   static Assistant fromJson(Map<String, dynamic> json) => Assistant(
@@ -264,6 +280,9 @@ class Assistant {
       }
       return const <AssistantRegex>[];
     })(),
+    updatedAt: (json['updatedAt'] as num?)?.toInt(),
+    deletedAt: (json['deletedAt'] as num?)?.toInt(),
+    localOnly: json['localOnly'] as bool? ?? false,
   );
 
   static String encodeList(List<Assistant> list) =>

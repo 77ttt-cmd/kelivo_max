@@ -24,6 +24,7 @@ import '../../utils/avatar_cache.dart';
 import '../utils/openai_model_compat.dart';
 import '../../utils/provider_grouping_logic.dart';
 import '../../utils/brand_assets.dart';
+import '../models/sync_config.dart';
 
 // Desktop: topic list position
 enum DesktopTopicPosition { left, right }
@@ -271,6 +272,7 @@ class SettingsProvider extends ChangeNotifier {
       'search_auto_test_on_launch_v1';
   static const String _webDavConfigKey = 'webdav_config_v1';
   static const String _s3ConfigKey = 's3_config_v1';
+  static const String _syncConfigKey = 'sync_config_v1';
   // Global network proxy
   static const String _globalProxyEnabledKey = 'global_proxy_enabled_v1';
   static const String _globalProxyTypeKey =
@@ -675,6 +677,39 @@ class SettingsProvider extends ChangeNotifier {
           debugPrint('$st');
           return true;
         }());
+      }
+    }
+
+    // Backfill syncId for configs that were persisted before the field existed.
+    if (providerConfigsLoaded) {
+      var needsPersist = false;
+      final uuid = const Uuid();
+      final patched = <String, ProviderConfig>{};
+      for (final entry in _providerConfigs.entries) {
+        final cfg = entry.value;
+        if (cfg.syncId.isEmpty) {
+          patched[entry.key] = cfg.copyWith(syncId: uuid.v4());
+          needsPersist = true;
+        } else {
+          patched[entry.key] = cfg;
+        }
+      }
+      if (needsPersist) {
+        _providerConfigs = patched;
+        try {
+          final map = patched.map((k, v) => MapEntry(k, v.toJson()));
+          await prefs.setString(_providerConfigsKey, jsonEncode(map));
+          assert(() {
+            debugPrint('[SettingsProvider] syncId backfill migration applied.');
+            return true;
+          }());
+        } catch (e, st) {
+          assert(() {
+            debugPrint('[SettingsProvider] syncId backfill persist failed: $e');
+            debugPrint('$st');
+            return true;
+          }());
+        }
       }
     }
 
@@ -1248,6 +1283,15 @@ class SettingsProvider extends ChangeNotifier {
           jsonDecode(s3Str) as Map<String, dynamic>,
         );
       } catch (_) {}
+    }
+    // sync config
+    final syncConfigStr = prefs.getString(_syncConfigKey);
+    if (syncConfigStr != null && syncConfigStr.isNotEmpty) {
+      try {
+        _syncConfig = SyncConfig.fromJsonString(syncConfigStr);
+      } catch (_) {
+        _syncConfig = const SyncConfig();
+      }
     }
     if (_providerConfigs.isEmpty) {
       // Seed a couple of sensible defaults on first launch, but do not recreate
@@ -1878,6 +1922,15 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_s3ConfigKey, jsonEncode(cfg.toJson()));
+  }
+
+  SyncConfig _syncConfig = const SyncConfig();
+  SyncConfig get syncConfig => _syncConfig;
+  Future<void> setSyncConfig(SyncConfig cfg) async {
+    _syncConfig = cfg;
+    notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_syncConfigKey, cfg.toJsonString());
   }
 
   Future<void> _initSearchConnectivityTests() async {
@@ -4553,6 +4606,12 @@ class ProviderConfig {
   // Anthropic/OpenRouter Claude prompt caching for stable system prompts.
   final bool? claudePromptCachingEnabled;
   final String? claudePromptCachingTtl;
+  // Stable sync identification (UUID v4). Unlike `id` which derives from
+  // display name and can change, `syncId` is immutable once assigned.
+  final String syncId;
+  final int? updatedAt;
+  final int? deletedAt;
+  final bool localOnly;
 
   static const String claudePromptCachingTtl5m = '5m';
   static const String claudePromptCachingTtl1h = '1h';
@@ -4617,7 +4676,11 @@ class ProviderConfig {
     this.balanceResultPath,
     this.claudePromptCachingEnabled = false,
     this.claudePromptCachingTtl = claudePromptCachingTtl5m,
-  });
+    String? syncId,
+    this.updatedAt,
+    this.deletedAt,
+    this.localOnly = false,
+  }) : syncId = syncId ?? const Uuid().v4();
 
   // Sentinel for copyWith nullability control (allow explicit null set)
   static const Object _sentinel = Object();
@@ -4654,6 +4717,10 @@ class ProviderConfig {
     String? balanceResultPath,
     bool? claudePromptCachingEnabled,
     String? claudePromptCachingTtl,
+    String? syncId,
+    Object? updatedAt = _sentinel,
+    Object? deletedAt = _sentinel,
+    bool? localOnly,
   }) => ProviderConfig(
     id: id ?? this.id,
     enabled: enabled ?? this.enabled,
@@ -4693,6 +4760,14 @@ class ProviderConfig {
         claudePromptCachingEnabled ?? this.claudePromptCachingEnabled,
     claudePromptCachingTtl:
         claudePromptCachingTtl ?? this.claudePromptCachingTtl,
+    syncId: syncId ?? this.syncId,
+    updatedAt: identical(updatedAt, _sentinel)
+        ? this.updatedAt
+        : (updatedAt as int?),
+    deletedAt: identical(deletedAt, _sentinel)
+        ? this.deletedAt
+        : (deletedAt as int?),
+    localOnly: localOnly ?? this.localOnly,
   );
 
   Map<String, dynamic> toJson() => {
@@ -4729,6 +4804,10 @@ class ProviderConfig {
     'claudePromptCachingTtl': resolveClaudePromptCachingTtl(
       claudePromptCachingTtl,
     ),
+    'syncId': syncId,
+    'updatedAt': updatedAt,
+    'deletedAt': deletedAt,
+    'localOnly': localOnly,
   };
 
   factory ProviderConfig.fromJson(Map<String, dynamic> json) => ProviderConfig(
@@ -4782,6 +4861,12 @@ class ProviderConfig {
     claudePromptCachingTtl: resolveClaudePromptCachingTtl(
       json['claudePromptCachingTtl'] as String?,
     ),
+    syncId: (json['syncId'] as String?)?.isNotEmpty == true
+        ? json['syncId'] as String
+        : null,
+    updatedAt: json['updatedAt'] as int?,
+    deletedAt: json['deletedAt'] as int?,
+    localOnly: json['localOnly'] as bool? ?? false,
   );
 
   static ProviderKind classify(String key, {ProviderKind? explicitType}) {

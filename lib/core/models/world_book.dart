@@ -71,6 +71,10 @@ class WorldBookEntry {
   final bool caseSensitive;
   final int scanDepth;
   final bool constantActive;
+  // Sync metadata
+  final int? updatedAt;
+  final int? deletedAt;
+  final bool localOnly;
 
   const WorldBookEntry({
     required this.id,
@@ -86,6 +90,9 @@ class WorldBookEntry {
     this.caseSensitive = false,
     this.scanDepth = 4,
     this.constantActive = false,
+    this.updatedAt,
+    this.deletedAt,
+    this.localOnly = false,
   });
 
   WorldBookEntry copyWith({
@@ -102,6 +109,9 @@ class WorldBookEntry {
     bool? caseSensitive,
     int? scanDepth,
     bool? constantActive,
+    int? updatedAt,
+    int? deletedAt,
+    bool? localOnly,
   }) {
     return WorldBookEntry(
       id: id ?? this.id,
@@ -117,6 +127,9 @@ class WorldBookEntry {
       caseSensitive: caseSensitive ?? this.caseSensitive,
       scanDepth: scanDepth ?? this.scanDepth,
       constantActive: constantActive ?? this.constantActive,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      localOnly: localOnly ?? this.localOnly,
     );
   }
 
@@ -134,6 +147,9 @@ class WorldBookEntry {
     'caseSensitive': caseSensitive,
     'scanDepth': scanDepth,
     'constantActive': constantActive,
+    'updatedAt': updatedAt,
+    'deletedAt': deletedAt,
+    'localOnly': localOnly,
   };
 
   static WorldBookEntry fromJson(Map<String, dynamic> json) {
@@ -158,6 +174,9 @@ class WorldBookEntry {
       caseSensitive: (json['caseSensitive'] as bool?) ?? false,
       scanDepth: (json['scanDepth'] as int?) ?? 4,
       constantActive: (json['constantActive'] as bool?) ?? false,
+      updatedAt: (json['updatedAt'] as num?)?.toInt(),
+      deletedAt: (json['deletedAt'] as num?)?.toInt(),
+      localOnly: (json['localOnly'] as bool?) ?? false,
     );
   }
 }
@@ -168,6 +187,10 @@ class WorldBook {
   final String description;
   final bool enabled;
   final List<WorldBookEntry> entries;
+  // Sync metadata
+  final int? updatedAt;
+  final int? deletedAt;
+  final bool localOnly;
 
   const WorldBook({
     required this.id,
@@ -175,6 +198,9 @@ class WorldBook {
     this.description = '',
     this.enabled = true,
     this.entries = const <WorldBookEntry>[],
+    this.updatedAt,
+    this.deletedAt,
+    this.localOnly = false,
   });
 
   WorldBook copyWith({
@@ -183,6 +209,9 @@ class WorldBook {
     String? description,
     bool? enabled,
     List<WorldBookEntry>? entries,
+    int? updatedAt,
+    int? deletedAt,
+    bool? localOnly,
   }) {
     return WorldBook(
       id: id ?? this.id,
@@ -190,6 +219,9 @@ class WorldBook {
       description: description ?? this.description,
       enabled: enabled ?? this.enabled,
       entries: entries ?? this.entries,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      localOnly: localOnly ?? this.localOnly,
     );
   }
 
@@ -199,6 +231,9 @@ class WorldBook {
     'description': description,
     'enabled': enabled,
     'entries': entries.map((e) => e.toJson()).toList(growable: false),
+    'updatedAt': updatedAt,
+    'deletedAt': deletedAt,
+    'localOnly': localOnly,
   };
 
   static WorldBook fromJson(Map<String, dynamic> json) {
@@ -215,6 +250,9 @@ class WorldBook {
       description: (json['description'] as String?) ?? '',
       enabled: (json['enabled'] as bool?) ?? true,
       entries: entries,
+      updatedAt: (json['updatedAt'] as num?)?.toInt(),
+      deletedAt: (json['deletedAt'] as num?)?.toInt(),
+      localOnly: (json['localOnly'] as bool?) ?? false,
     );
   }
 }

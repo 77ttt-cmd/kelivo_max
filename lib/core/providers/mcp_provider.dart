@@ -118,6 +118,10 @@ class McpServerConfig {
   final List<String> args;
   final Map<String, String> env;
   final String? workingDirectory;
+  // Sync metadata
+  final int? updatedAt;
+  final int? deletedAt;
+  final bool localOnly;
 
   McpServerConfig({
     required this.id,
@@ -131,6 +135,9 @@ class McpServerConfig {
     this.args = const [],
     this.env = const {},
     this.workingDirectory,
+    this.updatedAt,
+    this.deletedAt,
+    this.localOnly = false,
   });
 
   McpServerConfig copyWith({
@@ -146,6 +153,9 @@ class McpServerConfig {
     Map<String, String>? env,
     String? workingDirectory,
     bool clearWorkingDirectory = false,
+    int? updatedAt,
+    int? deletedAt,
+    bool? localOnly,
   }) => McpServerConfig(
     id: id ?? this.id,
     enabled: enabled ?? this.enabled,
@@ -160,6 +170,9 @@ class McpServerConfig {
     workingDirectory: clearWorkingDirectory
         ? null
         : (workingDirectory ?? this.workingDirectory),
+    updatedAt: updatedAt ?? this.updatedAt,
+    deletedAt: deletedAt ?? this.deletedAt,
+    localOnly: localOnly ?? this.localOnly,
   );
 
   Map<String, dynamic> toJson() => {
@@ -179,6 +192,9 @@ class McpServerConfig {
     if (transport == McpTransportType.stdio) 'env': env,
     if (transport == McpTransportType.stdio && workingDirectory != null)
       'workingDirectory': workingDirectory,
+    'updatedAt': updatedAt,
+    'deletedAt': deletedAt,
+    'localOnly': localOnly,
   };
 
   factory McpServerConfig.fromJson(Map<String, dynamic> json) {
@@ -214,6 +230,9 @@ class McpServerConfig {
             ? envAny.map((k, v) => MapEntry(k.toString(), v.toString()))
             : const <String, String>{},
         workingDirectory: (json['workingDirectory'] as String?)?.trim(),
+        updatedAt: (json['updatedAt'] as num?)?.toInt(),
+        deletedAt: (json['deletedAt'] as num?)?.toInt(),
+        localOnly: json['localOnly'] as bool? ?? false,
       );
     } else if (t == McpTransportType.inmemory) {
       return McpServerConfig(
@@ -222,6 +241,9 @@ class McpServerConfig {
         name: json['name'] as String? ?? '',
         transport: McpTransportType.inmemory,
         tools: tools,
+        updatedAt: (json['updatedAt'] as num?)?.toInt(),
+        deletedAt: (json['deletedAt'] as num?)?.toInt(),
+        localOnly: json['localOnly'] as bool? ?? false,
       );
     } else {
       return McpServerConfig(
@@ -236,6 +258,9 @@ class McpServerConfig {
               (k, v) => MapEntry(k.toString(), v.toString()),
             )) ??
             const {},
+        updatedAt: (json['updatedAt'] as num?)?.toInt(),
+        deletedAt: (json['deletedAt'] as num?)?.toInt(),
+        localOnly: json['localOnly'] as bool? ?? false,
       );
     }
   }

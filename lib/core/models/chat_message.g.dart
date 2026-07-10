@@ -32,18 +32,21 @@ class ChatMessageAdapter extends TypeAdapter<ChatMessage> {
       translation: fields[12] as String?,
       reasoningSegmentsJson: fields[13] as String?,
       groupId: fields[14] as String?,
-      version: (fields[15] as int?) ?? 0,
-      promptTokens: fields[16] is int ? fields[16] as int : null,
-      completionTokens: fields[17] is int ? fields[17] as int : null,
-      cachedTokens: fields[18] is int ? fields[18] as int : null,
-      durationMs: fields[19] is int ? fields[19] as int : null,
+      version: fields[15] as int?,
+      promptTokens: fields[16] as int?,
+      completionTokens: fields[17] as int?,
+      cachedTokens: fields[18] as int?,
+      durationMs: fields[19] as int?,
+      updatedAt: fields[20] as int?,
+      deletedAt: fields[21] as int?,
+      localOnly: fields[22] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, ChatMessage obj) {
     writer
-      ..writeByte(20)
+      ..writeByte(23)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -83,7 +86,13 @@ class ChatMessageAdapter extends TypeAdapter<ChatMessage> {
       ..writeByte(18)
       ..write(obj.cachedTokens)
       ..writeByte(19)
-      ..write(obj.durationMs);
+      ..write(obj.durationMs)
+      ..writeByte(20)
+      ..write(obj.updatedAt)
+      ..writeByte(21)
+      ..write(obj.deletedAt)
+      ..writeByte(22)
+      ..write(obj.localOnly);
   }
 
   @override

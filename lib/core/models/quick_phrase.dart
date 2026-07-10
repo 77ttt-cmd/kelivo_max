@@ -4,6 +4,10 @@ class QuickPhrase {
   final String content;
   final bool isGlobal; // true = global, false = assistant-specific
   final String? assistantId; // null for global phrases
+  // Sync metadata
+  final int? updatedAt;
+  final int? deletedAt;
+  final bool localOnly;
 
   const QuickPhrase({
     required this.id,
@@ -11,6 +15,9 @@ class QuickPhrase {
     required this.content,
     this.isGlobal = true,
     this.assistantId,
+    this.updatedAt,
+    this.deletedAt,
+    this.localOnly = false,
   });
 
   QuickPhrase copyWith({
@@ -19,6 +26,9 @@ class QuickPhrase {
     String? content,
     bool? isGlobal,
     String? assistantId,
+    int? updatedAt,
+    int? deletedAt,
+    bool? localOnly,
   }) {
     return QuickPhrase(
       id: id ?? this.id,
@@ -26,6 +36,9 @@ class QuickPhrase {
       content: content ?? this.content,
       isGlobal: isGlobal ?? this.isGlobal,
       assistantId: assistantId ?? this.assistantId,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      localOnly: localOnly ?? this.localOnly,
     );
   }
 
@@ -35,6 +48,9 @@ class QuickPhrase {
     'content': content,
     'isGlobal': isGlobal,
     'assistantId': assistantId,
+    'updatedAt': updatedAt,
+    'deletedAt': deletedAt,
+    'localOnly': localOnly,
   };
 
   static QuickPhrase fromJson(Map<String, dynamic> json) => QuickPhrase(
@@ -43,5 +59,8 @@ class QuickPhrase {
     content: (json['content'] as String?) ?? '',
     isGlobal: json['isGlobal'] as bool? ?? true,
     assistantId: json['assistantId'] as String?,
+    updatedAt: (json['updatedAt'] as num?)?.toInt(),
+    deletedAt: (json['deletedAt'] as num?)?.toInt(),
+    localOnly: json['localOnly'] as bool? ?? false,
   );
 }

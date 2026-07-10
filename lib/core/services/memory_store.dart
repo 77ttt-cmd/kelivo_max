@@ -1,6 +1,11 @@
 import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
+
 import '../models/assistant_memory.dart';
+
+const _uuid = Uuid();
 
 class MemoryStore {
   static const String _memoriesKey = 'assistant_memories_v1';
@@ -13,13 +18,26 @@ class MemoryStore {
     if (raw == null || raw.isEmpty) return <AssistantMemory>[];
     try {
       final arr = jsonDecode(raw) as List<dynamic>;
-      return [
-        for (final e in arr)
-          if (e is Map<String, dynamic>)
-            AssistantMemory.fromJson(e)
-          else
-            AssistantMemory.fromJson((e as Map).cast<String, dynamic>()),
-      ];
+      bool needsMigration = false;
+      final list = <AssistantMemory>[];
+      for (final e in arr) {
+        final map = e is Map<String, dynamic>
+            ? e
+            : (e as Map).cast<String, dynamic>();
+        final uidValue = map['uid'];
+        if (uidValue == null || (uidValue is String && uidValue.isEmpty)) {
+          needsMigration = true;
+        }
+        list.add(AssistantMemory.fromJson(map));
+      }
+
+      if (needsMigration) {
+        // Persist once so auto-generated UIDs are saved.
+        final json = jsonEncode(list.map((e) => e.toJson()).toList());
+        await prefs.setString(_memoriesKey, json);
+      }
+
+      return list;
     } catch (_) {
       return <AssistantMemory>[];
     }
@@ -60,6 +78,7 @@ class MemoryStore {
     final id = _nextId(all);
     final mem = AssistantMemory(
       id: id,
+      uid: _uuid.v4(),
       assistantId: assistantId,
       content: content,
     );

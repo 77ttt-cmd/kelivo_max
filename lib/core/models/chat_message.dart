@@ -70,6 +70,15 @@ class ChatMessage extends HiveObject {
   @HiveField(19)
   final int? durationMs;
 
+  @HiveField(20)
+  final int? updatedAt;
+
+  @HiveField(21)
+  final int? deletedAt;
+
+  @HiveField(22)
+  final bool localOnly;
+
   ChatMessage({
     String? id,
     required this.role,
@@ -91,6 +100,9 @@ class ChatMessage extends HiveObject {
     this.completionTokens,
     this.cachedTokens,
     this.durationMs,
+    this.updatedAt,
+    this.deletedAt,
+    this.localOnly = false,
   }) : id = id ?? const Uuid().v4(),
        timestamp = timestamp ?? DateTime.now(),
        groupId = groupId ?? id,
@@ -117,6 +129,9 @@ class ChatMessage extends HiveObject {
     int? completionTokens,
     int? cachedTokens,
     int? durationMs,
+    int? updatedAt,
+    int? deletedAt,
+    bool? localOnly,
   }) {
     return ChatMessage(
       id: id ?? this.id,
@@ -140,6 +155,9 @@ class ChatMessage extends HiveObject {
       completionTokens: completionTokens ?? this.completionTokens,
       cachedTokens: cachedTokens ?? this.cachedTokens,
       durationMs: durationMs ?? this.durationMs,
+      updatedAt: updatedAt ?? this.updatedAt,
+      deletedAt: deletedAt ?? this.deletedAt,
+      localOnly: localOnly ?? this.localOnly,
     );
   }
 
@@ -165,6 +183,9 @@ class ChatMessage extends HiveObject {
       'completionTokens': completionTokens,
       'cachedTokens': cachedTokens,
       'durationMs': durationMs,
+      'updatedAt': updatedAt,
+      'deletedAt': deletedAt,
+      'localOnly': localOnly,
     };
   }
 
@@ -194,6 +215,9 @@ class ChatMessage extends HiveObject {
       completionTokens: json['completionTokens'] as int?,
       cachedTokens: json['cachedTokens'] as int?,
       durationMs: json['durationMs'] as int?,
+      updatedAt: json['updatedAt'] as int?,
+      deletedAt: json['deletedAt'] as int?,
+      localOnly: json['localOnly'] as bool? ?? false,
     );
   }
 }
