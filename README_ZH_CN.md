@@ -2,16 +2,9 @@
   <img src="assets/app_icon.png" alt="Kelivo Max Icon" width="100" />
   <h1>Kelivo Max</h1>
 
-一个 Flutter LLM 聊天客户端
+  跨平台 Flutter LLM 聊天客户端，自建云同步 + 云端生成。
 
-  <a href="https://discord.gg/Tb8DyvvV5T" target="_blank">
-    <img src="https://img.shields.io/badge/Join%20our%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Join Discord"/>
-  </a>
-  <a href="https://qm.qq.com/q/OQaXetKssC" target="_blank" style="margin-left: 6px;">
-    <img src="https://img.shields.io/badge/Join%20QQ%20Group-%230366CC?style=for-the-badge&logo=qq&logoColor=white" alt="Join QQ Group"/>
-  </a>
-
-[English](README.md) | 简体中文
+  [English](README.md) | 简体中文
 </div>
 
 <div align="center">
@@ -21,79 +14,105 @@
   <img src="docx/screenshot_4.png" alt="网络搜索" width="150" />
 </div>
 
-## 🚀 下载
+## Kelivo Max 是什么
 
-[![Download on the App Store](https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg)](https://apps.apple.com/us/app/kelivo/id6752122930)
+Kelivo Max 是基于 [Kelivo](https://github.com/Chevey339/kelivo) 的增强分支，新增核心能力：
 
+- **自建云同步** — 聊天、助手、服务商配置、文件通过你自己的后端服务器双向同步。不依赖任何第三方云服务，数据完全在你的基础设施上。
+- **云端生成** — 将生成任务提交到服务器执行，通过 WebSocket 实时接收结果，关掉 App 也能继续跑。不依赖 Firebase/Google 服务——中国大陆可用。
+- **无痕清除** — 一键销毁本地所有已同步数据，云端副本不受影响。
+- **KMS 密钥加密** — API 密钥在服务端通过 per-user 信封加密 (AES-256-GCM) 加密存储，数据库中不存在明文密钥。
 
-🔗 [下载最新版本](https://github.com/Chevey339/kelivo/releases/latest)
+## 下载
 
-🔗 [TestFlight](https://testflight.apple.com/join/erbGGykR) 参与测试版体验。
+[Releases](https://github.com/77ttt-cmd/kelivo_max/releases)
 
-## 💖 赞助
+## 功能
 
-感谢 [siliconflow.cn](https://siliconflow.cn) 与我们合作提供可免费使用的模型。
+### 云同步 & 云执行 (Kelivo Max 新增)
+- 自建同步服务端 (`kelivo-sync-server/`) — Dart/shelf 后端 + PostgreSQL
+- 双向同步，Last-Write-Wins 冲突解决
+- 单条记录 `localOnly` 开关——指定聊天或助手不上云
+- 增量文件同步，SHA256 去重
+- 云端流式生成，WebSocket 实时中继
+- iOS APNs 推送通知（不用 FCM，中国大陆可用）
+- Per-user KMS 信封加密保护 API 密钥
+- 无痕清除：先预览影响范围，再一键销毁
 
-## ✨ 功能特性
+### 聊天 & AI
+- 多服务商：OpenAI、Google Gemini、Anthropic、DeepSeek、Qwen 及任何 OpenAI 兼容 API
+- 自定义助手：系统提示词、世界书、记忆
+- 多模态输入：图片、PDF、Word、文本文件
+- 完整 Markdown 渲染：代码高亮、LaTeX、表格、Mermaid
+- MCP (Model Context Protocol) 工具集成，内置 fetch 工具
+- 网络搜索：Bing、DuckDuckGo、Exa、Tavily、Brave、SearXNG、Perplexity 等
+- 语音：系统 TTS + OpenAI / Gemini / ElevenLabs / MiniMax 语音服务
+- 提示词变量、二维码分享、自定义 HTTP 请求头
 
-- 🎨 **现代化设计** - Material You 设计语言，支持动态主题色(Android12+)
-- 🌙 **深色模式** - 完美适配深色主题，保护您的眼睛
-- 🌍 **多语言支持** - 支持中文和英文界面
-- 🖥️ **多平台支持** - 移动端与桌面端均支持（Android/iOS/Harmony、Windows/macOS/Linux）
-- 🔄 **多供应商支持** - 支持 OpenAI、Google Gemini、Anthropic 等主流 AI 供应商
-- 🤖 **自定义助手** - 创建和管理个性化 AI 助手
-- 🖼️ **多模态输入** - 支持图片、文本文档、PDF、Word 文档等多种格式
-- 📝 **Markdown 渲染** - 完整支持代码高亮、LaTeX 公式、表格等
-- 🎙️ **语音服务** - 内置系统 TTS，同时支持 OpenAI / Google Gemini / ElevenLabs 语音服务器
-- 🛠️ **MCP 支持** - Model Context Protocol 工具集成
-- 🧰 **内置 MCP 工具** - 内置 fetch MCP 工具
-- 🔍 **网络搜索** - 集成多种搜索引擎（Bing、DuckDuckGo、Exa、Tavily、智谱、LinkUp、Brave、Metaso、SearXNG、Ollama、Jina、Perplexity、Bocha、Serper、Grok）
-- 🧩 **提示词变量** - 支持模型名称、时间等动态变量
-- 📤 **二维码分享** - 通过二维码导出和导入供应商配置
-- 💾 **数据备份** - 支持聊天记录备份和恢复
-- 🌐 **自定义请求** - 支持自定义 HTTP 请求头和请求体
-- 🔡 **自定义字体** - 支持自定义字体（系统字体 / Google Fonts）
-- ⚙️ **Android 后台生成对话** - 可在后台持续生成消息（可在设置中开启）。
+### 平台
+- Android、iOS、macOS、Windows、Linux
+- iOS 灵动岛显示后台生成进度
+- Android 前台服务保持后台生成
+- 桌面端：快捷键、系统托盘、右键菜单
+- 自定义字体（系统字体 / Google Fonts）
+- 深色模式 + 动态主题色
 
-## 📱 平台支持
+## 自建同步服务端
 
-- ✅ Android
-- ✅ iOS
-- ✅ Harmony ([kelivo-ohos](https://github.com/Chevey339/kelivo-ohos))
-- ✅ Windows
-- ✅ macOS
-- ✅ Linux
+```bash
+cd kelivo-sync-server
+docker-compose up -d     # 启动 PostgreSQL + 服务端
+```
 
-## 🤝 贡献指南
+环境变量：
+| 变量 | 必须 | 说明 |
+|---|---|---|
+| `DATABASE_URL` | 是 | PostgreSQL 连接字符串 |
+| `JWT_SECRET` | 是 | JWT 签名密钥 |
+| `KMS_MASTER_KEY` | 加密时 | 32 字节 hex，信封加密主密钥 |
+| `APNS_KEY_ID` | iOS 推送 | Apple 推送通知 Key ID |
+| `APNS_TEAM_ID` | iOS 推送 | Apple Developer Team ID |
+| `APNS_KEY_P8` | iOS 推送 | APNs 签名密钥内容 |
+| `APNS_BUNDLE_ID` | iOS 推送 | App Bundle Identifier |
 
-欢迎提交 Pull Request 或创建 Issue！
+完整部署指南见 [kelivo-sync-server/README.md](kelivo-sync-server/README.md)。
 
-1. Fork 本仓库
-2. 创建您的特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交您的更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 开启一个 Pull Request
+## 从源码构建
 
-## ❤️ 致谢
+```bash
+flutter pub get
+dart run build_runner build --delete-conflicting-outputs
+flutter run
+```
 
-特别感谢 [RikkaHub](https://github.com/re-ovo/rikkahub) 项目提供的 UI 设计灵感。Kelivo Max 的界面设计深受 RikkaHub 优美且实用的设计启发。
+要求：Flutter >= 3.44.1, Dart >= 3.12.1
 
-## ⭐ Star History
+## 架构
 
-如果你喜欢这个项目，可以给个Star ⭐
+```
+客户端 (Flutter)                     服务端 (Dart/shelf)
+┌──────────────┐                    ┌──────────────────┐
+│ SyncProvider  │◄── WebSocket ────►│ RelayService     │
+│ SyncApiClient │◄── REST ────────►│ ChangelogService │
+│ Handlers (9)  │                   │ EncryptionService│
+│ CloudTask     │                   │ StreamDispatcher │
+│ IncognitoWipe │                   │ PushService      │
+└──────────────┘                    └──────────────────┘
+                                           │
+                                    ┌──────┴──────┐
+                                    │ PostgreSQL  │
+                                    └─────────────┘
+```
 
-[![Star History Chart](https://api.star-history.com/svg?repos=Chevey339/kelivo&type=Date)](https://star-history.com/#Chevey339/kelivo&Date)
+## 致谢
 
-## 📄 许可证
+- [Kelivo](https://github.com/Chevey339/kelivo) — 本项目 fork 自 Kelivo
+- [RikkaHub](https://github.com/re-ovo/rikkahub) — UI 设计灵感来源
 
-本项目采用 AGPL-3.0 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情
+## 许可证
 
-## 📞 联系我们
+AGPL-3.0 — 见 [LICENSE](LICENSE)。
 
-- Issue: [GitHub Issues](https://github.com/Chevey339/kelivo/issues)
+## 反馈
 
----
-
-<div align="center">
-Made with ❤️ using Flutter
-</div>
+[GitHub Issues](https://github.com/77ttt-cmd/kelivo_max/issues)

@@ -2,17 +2,9 @@
   <img src="assets/app_icon.png" alt="Kelivo Max Icon" width="100" />
   <h1>Kelivo Max</h1>
 
-A Flutter LLM Chat Client
+  Cross-platform Flutter LLM chat client with self-hosted cloud sync and cloud-side generation.
 
-  <a href="https://discord.gg/Tb8DyvvV5T" target="_blank">
-    <img src="https://img.shields.io/badge/Join%20our%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Join Discord"/>
-  </a>
-  <a href="https://qm.qq.com/q/OQaXetKssC" target="_blank" style="margin-left: 6px;">
-    <img src="https://img.shields.io/badge/Join%20QQ%20Group-%230366CC?style=for-the-badge&logo=qq&logoColor=white" alt="Join QQ Group"/>
-  </a>
-
-
-English | [简体中文](README_ZH_CN.md)
+  English | [简体中文](README_ZH_CN.md)
 </div>
 
 <div align="center">
@@ -22,78 +14,105 @@ English | [简体中文](README_ZH_CN.md)
   <img src="docx/screenshot_4.png" alt="Web Search" width="150" />
 </div>
 
-## 🚀 Download
+## What is Kelivo Max
 
-[![Download on the App Store](https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg)](https://apps.apple.com/us/app/kelivo/id6752122930)
+Kelivo Max is a feature-rich LLM chat client forked from [Kelivo](https://github.com/Chevey339/kelivo), with major additions:
 
-🔗 [Download the latest version](https://github.com/Chevey339/kelivo/releases/latest)
+- **Self-hosted cloud sync** — bidirectional sync of chats, assistants, providers, and files through your own backend server. No third-party cloud service. Data stays on your infrastructure.
+- **Cloud-side generation** — submit generation tasks to the server and receive results via WebSocket, even after closing the app. No dependency on Firebase or Google services — works in mainland China.
+- **Incognito wipe** — one-click local destruction of all synced data without affecting cloud copies.
+- **KMS key encryption** — API keys are encrypted at rest on the server using per-user envelope encryption (AES-256-GCM).
 
-🔗 [TestFlight](https://testflight.apple.com/join/erbGGykR) for beta testing.
+## Download
 
-## 💖 Sponsors
+[Releases](https://github.com/77ttt-cmd/kelivo_max/releases)
 
-Thanks to [siliconflow.cn](https://siliconflow.cn) for providing free models in cooperation with us.
+## Features
 
-## ✨ Features
+### Cloud sync & execution (new in Kelivo Max)
+- Self-hosted sync server (`kelivo-sync-server/`) — Dart/shelf backend with PostgreSQL
+- Bidirectional sync with Last-Write-Wins conflict resolution
+- Per-record `localOnly` toggle — keep specific chats or assistants off the cloud
+- Incremental file sync with SHA256 dedup
+- Cloud-side streaming generation via WebSocket relay
+- APNs push notifications for iOS (no FCM — works in China)
+- Per-user KMS envelope encryption for API keys
+- Incognito wipe: preview what will be deleted, then one-click destroy
 
-- 🎨 **Modern Design** - Material You design language with dynamic color theming support (Android 12+).
-- 🌙 **Dark Mode** - Perfectly adapted dark theme to protect your eyes.
-- 🌍 **Multi-language Support** - Supports both English and Chinese interfaces.
-- 🖥️ **Multi-platform Support** - Mobile (Android/iOS/Harmony) and Desktop (Windows/macOS/Linux).
-- 🔄 **Multi-provider Support** - Supports major AI providers like OpenAI, Google Gemini, Anthropic, etc.
-- 🤖 **Custom Assistants** - Create and manage personalized AI assistants.
-- 🖼️ **Multimodal Input** - Supports various formats including images, text documents, PDFs, Word documents, etc.
-- 📝 **Markdown Rendering** - Full support for code highlighting, LaTeX formulas, tables, and more.
-- 🎙️ **Voice/TTS Providers** - Built-in system TTS plus OpenAI / Google Gemini / ElevenLabs voice servers.
-- 🛠️ **MCP Support** - Model Context Protocol tool integration.
-- 🧰 **Built-in MCP Tools** - Includes a built-in MCP Fetch tool.
-- 🔍 **Web Search** - Integrated with multiple search engines (Bing, DuckDuckGo, Exa, Tavily, Zhipu, LinkUp, Brave, Metaso, SearXNG, Ollama, Jina, Perplexity, Bocha, Serper, Grok).
-- 🧩 **Prompt Variables** - Supports dynamic variables like model name, time, etc.
-- 📤 **QR Code Sharing** - Export and import provider configurations via QR codes.
-- 💾 **Data Backup** - Supports chat history backup and restoration.
-- 🌐 **Custom Requests** - Supports custom HTTP request headers and bodies.
-- 🔡 **Custom Fonts** - Bring your own fonts (system fonts / Google Fonts).
-- ⚙️ **Android Background Generation** - Keep chat generation running in the background (optional setting).
+### Chat & AI
+- Multi-provider: OpenAI, Google Gemini, Anthropic, DeepSeek, Qwen, and any OpenAI-compatible API
+- Custom assistants with system prompts, world books, and memory
+- Multimodal input: images, PDFs, Word docs, text files
+- Full Markdown rendering with code highlighting, LaTeX, tables, Mermaid
+- MCP (Model Context Protocol) tool integration with built-in fetch tool
+- Web search: Bing, DuckDuckGo, Exa, Tavily, Brave, SearXNG, Perplexity, and more
+- TTS: system TTS + OpenAI / Gemini / ElevenLabs / MiniMax voice providers
+- Prompt variables, QR code sharing, custom HTTP headers
 
-## 📱 Platform Support
+### Platform
+- Android, iOS, macOS, Windows, Linux
+- iOS Live Activities for background generation progress
+- Android foreground service for background generation
+- Desktop: keyboard shortcuts, system tray, right-click context menus
+- Custom fonts (system fonts / Google Fonts)
+- Dark mode with dynamic color theming
 
-- ✅ Android
-- ✅ iOS
-- ✅ Harmony ([kelivo-ohos](https://github.com/Chevey339/kelivo-ohos))
-- ✅ Windows
-- ✅ macOS
-- ✅ Linux
+## Self-hosting the sync server
 
-## 🤝 Contribution Guide
+```bash
+cd kelivo-sync-server
+docker-compose up -d     # starts PostgreSQL + server
+```
 
-Pull Requests and Issues are welcome!
+Environment variables:
+| Variable | Required | Description |
+|---|---|---|
+| `DATABASE_URL` | Yes | PostgreSQL connection string |
+| `JWT_SECRET` | Yes | Secret for signing JWT tokens |
+| `KMS_MASTER_KEY` | For encryption | 32-byte hex key for envelope encryption |
+| `APNS_KEY_ID` | For iOS push | Apple push notification key ID |
+| `APNS_TEAM_ID` | For iOS push | Apple Developer team ID |
+| `APNS_KEY_P8` | For iOS push | APNs signing key content |
+| `APNS_BUNDLE_ID` | For iOS push | App bundle identifier |
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+See [kelivo-sync-server/README.md](kelivo-sync-server/README.md) for full setup guide.
 
-## ❤️ Acknowledgements
+## Building from source
 
-Special thanks to the [RikkaHub](https://github.com/re-ovo/rikkahub) project for the UI design inspiration. Kelivo Max's interface design is heavily inspired by RikkaHub's beautiful and practical design.
+```bash
+flutter pub get
+dart run build_runner build --delete-conflicting-outputs
+flutter run
+```
 
-## ⭐ Star History
+Requirements: Flutter >= 3.44.1, Dart >= 3.12.1
 
-If you like this project, please give it a star ⭐
+## Architecture
 
-[![Star History Chart](https://api.star-history.com/svg?repos=Chevey339/kelivo&type=Date)](https://star-history.com/#Chevey339/kelivo&Date)
+```
+Client (Flutter)                    Server (Dart/shelf)
+┌──────────────┐                    ┌──────────────────┐
+│ SyncProvider  │◄── WebSocket ────►│ RelayService     │
+│ SyncApiClient │◄── REST ────────►│ ChangelogService │
+│ Handlers (9)  │                   │ EncryptionService│
+│ CloudTask     │                   │ StreamDispatcher │
+│ IncognitoWipe │                   │ PushService      │
+└──────────────┘                    └──────────────────┘
+                                           │
+                                    ┌──────┴──────┐
+                                    │ PostgreSQL  │
+                                    └─────────────┘
+```
 
-## 📄 License
+## Acknowledgements
 
-This project is licensed under the AGPL-3.0 License - see the [LICENSE](LICENSE) file for details.
+- [Kelivo](https://github.com/Chevey339/kelivo) — the original project this is forked from
+- [RikkaHub](https://github.com/re-ovo/rikkahub) — UI design inspiration
 
-## 📞 Contact Us
+## License
 
-- Issue: [GitHub Issues](https://github.com/Chevey339/kelivo/issues)
+AGPL-3.0 — see [LICENSE](LICENSE).
 
----
+## Issues
 
-<div align="center">
-Made with ❤️ using Flutter
-</div>
+[GitHub Issues](https://github.com/77ttt-cmd/kelivo_max/issues)
