@@ -57,11 +57,15 @@ Kelivo Max is a feature-rich LLM chat client forked from [Kelivo](https://github
 - Custom fonts (system fonts / Google Fonts)
 - Dark mode with dynamic color theming
 
-## Self-hosting the sync server
+## Sync server
+
+Default server: `https://3846-79545ece8ae76c54.monkeycode-ai.live` (pre-configured in the app).
+
+### Self-hosting
 
 ```bash
 cd kelivo-sync-server
-docker-compose up -d     # starts PostgreSQL + server
+docker-compose up -d     # starts PostgreSQL + server on port 3846
 ```
 
 Environment variables:

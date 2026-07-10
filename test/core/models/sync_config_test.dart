@@ -7,7 +7,7 @@ void main() {
   group('SyncConfig', () {
     test('default constructor creates valid defaults', () {
       const config = SyncConfig();
-      expect(config.serverUrl, '');
+      expect(config.serverUrl, SyncConfig.defaultServerUrl);
       expect(config.username, '');
       expect(config.enabled, false);
       expect(config.categories, isEmpty);
@@ -50,7 +50,7 @@ void main() {
 
     test('fromJson with missing fields uses defaults', () {
       final config = SyncConfig.fromJson(<String, dynamic>{});
-      expect(config.serverUrl, '');
+      expect(config.serverUrl, SyncConfig.defaultServerUrl);
       expect(config.username, '');
       expect(config.enabled, false);
       expect(config.categories, isEmpty);
@@ -80,7 +80,7 @@ void main() {
 
     test('fromJsonString with malformed JSON returns default SyncConfig', () {
       final config = SyncConfig.fromJsonString('{not valid json!!!');
-      expect(config.serverUrl, '');
+      expect(config.serverUrl, SyncConfig.defaultServerUrl);
       expect(config.enabled, false);
       expect(config.direction, SyncDirection.pullOnly);
       expect(config.lastSyncCursor, 0);

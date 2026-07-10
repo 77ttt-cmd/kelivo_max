@@ -19,7 +19,7 @@ import 'package:kelivo_max_sync_server/services/relay_service.dart';
 import 'package:kelivo_max_sync_server/services/stream_dispatcher.dart';
 
 void main(List<String> args) async {
-  final port = int.tryParse(Platform.environment['PORT'] ?? '8080') ?? 8080;
+  final port = int.tryParse(Platform.environment['PORT'] ?? '3846') ?? 3846;
   final host = Platform.environment['HOST'] ?? '0.0.0.0';
 
   // Initialize database

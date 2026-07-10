@@ -14,9 +14,9 @@ services:
   server:
     build: .
     ports:
-      - "8080:8080"
+      - "3846:3846"
     environment:
-      PORT: "8080"
+      PORT: "3846"
       DATABASE_URL: "postgresql://kelivo:kelivo_dev@db:5432/kelivo_sync"
       JWT_SECRET: "dev-secret-change-in-production"
     depends_on:

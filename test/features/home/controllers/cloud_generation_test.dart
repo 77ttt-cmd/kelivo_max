@@ -191,7 +191,7 @@ void main() {
       final config = SyncConfig.fromJsonString('not-json');
       expect(config.enabled, false);
       expect(config.cloudExecutionEnabled, false);
-      expect(config.serverUrl, isEmpty);
+      expect(config.serverUrl, SyncConfig.defaultServerUrl);
     });
   });
 }

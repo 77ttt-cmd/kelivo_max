@@ -11,5 +11,5 @@ FROM scratch
 COPY --from=build /runtime/ /
 COPY --from=build /app/bin/server /app/bin/server
 
-EXPOSE 8080
+EXPOSE 3846
 CMD ["/app/bin/server"]

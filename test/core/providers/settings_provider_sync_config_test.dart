@@ -24,7 +24,7 @@ void main() {
       await _waitForSettingsLoad();
 
       expect(settings.syncConfig.enabled, false);
-      expect(settings.syncConfig.serverUrl, '');
+      expect(settings.syncConfig.serverUrl, SyncConfig.defaultServerUrl);
       expect(settings.syncConfig.direction, SyncDirection.pullOnly);
     });
 
@@ -68,7 +68,7 @@ void main() {
         await _waitForSettingsLoad();
 
         expect(settings.syncConfig.enabled, false);
-        expect(settings.syncConfig.serverUrl, '');
+        expect(settings.syncConfig.serverUrl, SyncConfig.defaultServerUrl);
       },
     );
 
@@ -112,7 +112,7 @@ void main() {
       await settings.setSyncConfig(const SyncConfig());
 
       expect(settings.syncConfig.enabled, false);
-      expect(settings.syncConfig.serverUrl, '');
+      expect(settings.syncConfig.serverUrl, SyncConfig.defaultServerUrl);
     });
   });
 }

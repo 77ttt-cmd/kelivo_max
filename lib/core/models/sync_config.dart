@@ -14,8 +14,12 @@ class SyncConfig {
   final int lastSyncCursor;
   final int? lastSyncAt;
 
+  /// Default sync server URL.
+  static const String defaultServerUrl =
+      'https://3846-79545ece8ae76c54.monkeycode-ai.live';
+
   const SyncConfig({
-    this.serverUrl = '',
+    this.serverUrl = defaultServerUrl,
     this.username = '',
     this.enabled = false,
     Map<SyncCategory, bool>? categories,
@@ -84,7 +88,7 @@ class SyncConfig {
     }
 
     return SyncConfig(
-      serverUrl: json['serverUrl'] as String? ?? '',
+      serverUrl: json['serverUrl'] as String? ?? defaultServerUrl,
       username: json['username'] as String? ?? '',
       enabled: json['enabled'] as bool? ?? false,
       categories: categoriesMap,

@@ -156,7 +156,7 @@ void main() {
       final config = SyncConfig.fromJsonString('not valid json');
 
       expect(config.enabled, isFalse);
-      expect(config.serverUrl, isEmpty);
+      expect(config.serverUrl, SyncConfig.defaultServerUrl);
       expect(config.lastSyncCursor, 0);
     });
 
@@ -180,7 +180,7 @@ void main() {
     test('fromJson with missing fields uses defaults', () {
       final config = SyncConfig.fromJson(<String, dynamic>{});
 
-      expect(config.serverUrl, isEmpty);
+      expect(config.serverUrl, SyncConfig.defaultServerUrl);
       expect(config.username, isEmpty);
       expect(config.enabled, isFalse);
       expect(config.direction, SyncDirection.pullOnly);

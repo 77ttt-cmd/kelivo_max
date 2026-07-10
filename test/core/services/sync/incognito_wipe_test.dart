@@ -157,7 +157,7 @@ void main() {
       expect(fakeCredentialStore.cleared, true);
       expect(capturedConfig, isNotNull);
       expect(capturedConfig!.enabled, false);
-      expect(capturedConfig!.serverUrl, '');
+      expect(capturedConfig!.serverUrl, SyncConfig.defaultServerUrl);
       expect(capturedConfig!.username, '');
     });
 
