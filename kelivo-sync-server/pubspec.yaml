@@ -1,0 +1,25 @@
+name: kelivo_sync_server
+description: Kelivo cloud sync backend server.
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.12.0
+
+dependencies:
+  shelf: ^1.4.2
+  shelf_router: ^1.1.4
+  postgres: ^3.5.3
+  dotenv: ^4.2.0
+  args: ^2.5.0
+  dart_jsonwebtoken: ^2.14.4
+  bcrypt: ^1.1.3
+  crypto: ^3.0.6
+  cryptography: ^2.7.0
+  shelf_web_socket: ^2.0.1
+  web_socket_channel: ^3.0.3
+
+dev_dependencies:
+  test: ^1.25.8
+  http: ^1.3.0
+  lints: ^5.1.1
