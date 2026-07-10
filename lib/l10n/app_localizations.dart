@@ -10417,6 +10417,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Register'**
   String get syncRegisterButton;
+
+  /// No description provided for @syncOnboardingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Kelivo Max'**
+  String get syncOnboardingTitle;
+
+  /// No description provided for @syncOnboardingSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to sync your data across devices'**
+  String get syncOnboardingSubtitle;
+
+  /// No description provided for @syncOnboardingSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip for now'**
+  String get syncOnboardingSkip;
+
+  /// No description provided for @syncOnboardingOrDivider.
+  ///
+  /// In en, this message translates to:
+  /// **'or'**
+  String get syncOnboardingOrDivider;
 }
 
 class _AppLocalizationsDelegate

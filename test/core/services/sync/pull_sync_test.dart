@@ -155,7 +155,7 @@ void main() {
     test('fromJsonString handles invalid JSON gracefully', () {
       final config = SyncConfig.fromJsonString('not valid json');
 
-      expect(config.enabled, isFalse);
+      expect(config.enabled, isTrue);
       expect(config.serverUrl, SyncConfig.defaultServerUrl);
       expect(config.lastSyncCursor, 0);
     });
@@ -182,7 +182,7 @@ void main() {
 
       expect(config.serverUrl, SyncConfig.defaultServerUrl);
       expect(config.username, isEmpty);
-      expect(config.enabled, isFalse);
+      expect(config.enabled, isTrue);
       expect(config.direction, SyncDirection.pullOnly);
       expect(config.cloudExecutionEnabled, isFalse);
       expect(config.lastSyncCursor, 0);

@@ -2423,5 +2423,9 @@
       }
     }
   },
-  "syncRegisterButton": "Register"
+  "syncRegisterButton": "Register",
+  "syncOnboardingTitle": "Welcome to Kelivo Max",
+  "syncOnboardingSubtitle": "Sign in to sync your data across devices",
+  "syncOnboardingSkip": "Skip for now",
+  "syncOnboardingOrDivider": "or"
 }

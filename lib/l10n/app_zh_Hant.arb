@@ -2000,5 +2000,9 @@
       }
     }
   },
-  "syncRegisterButton": "註冊"
+  "syncRegisterButton": "註冊",
+  "syncOnboardingTitle": "歡迎使用 Kelivo Max",
+  "syncOnboardingSubtitle": "登入以跨裝置同步資料",
+  "syncOnboardingSkip": "暫時略過",
+  "syncOnboardingOrDivider": "或"
 }

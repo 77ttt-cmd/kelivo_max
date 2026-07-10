@@ -9,7 +9,7 @@ void main() {
       const config = SyncConfig();
       expect(config.serverUrl, SyncConfig.defaultServerUrl);
       expect(config.username, '');
-      expect(config.enabled, false);
+      expect(config.enabled, true);
       expect(config.categories, isEmpty);
       expect(config.direction, SyncDirection.pullOnly);
       expect(config.cloudExecutionEnabled, false);
@@ -52,7 +52,7 @@ void main() {
       final config = SyncConfig.fromJson(<String, dynamic>{});
       expect(config.serverUrl, SyncConfig.defaultServerUrl);
       expect(config.username, '');
-      expect(config.enabled, false);
+      expect(config.enabled, true);
       expect(config.categories, isEmpty);
       expect(config.direction, SyncDirection.pullOnly);
       expect(config.cloudExecutionEnabled, false);
@@ -81,7 +81,7 @@ void main() {
     test('fromJsonString with malformed JSON returns default SyncConfig', () {
       final config = SyncConfig.fromJsonString('{not valid json!!!');
       expect(config.serverUrl, SyncConfig.defaultServerUrl);
-      expect(config.enabled, false);
+      expect(config.enabled, true);
       expect(config.direction, SyncDirection.pullOnly);
       expect(config.lastSyncCursor, 0);
     });

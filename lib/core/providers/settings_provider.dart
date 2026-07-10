@@ -273,6 +273,7 @@ class SettingsProvider extends ChangeNotifier {
   static const String _webDavConfigKey = 'webdav_config_v1';
   static const String _s3ConfigKey = 's3_config_v1';
   static const String _syncConfigKey = 'sync_config_v1';
+  static const String _syncOnboardingKey = 'sync_onboarding_completed';
   // Global network proxy
   static const String _globalProxyEnabledKey = 'global_proxy_enabled_v1';
   static const String _globalProxyTypeKey =
@@ -565,6 +566,16 @@ class SettingsProvider extends ChangeNotifier {
 
   int _appLaunchCount = 0;
   int get appLaunchCount => _appLaunchCount;
+
+  bool _syncOnboardingCompleted = false;
+  bool get syncOnboardingCompleted => _syncOnboardingCompleted;
+
+  Future<void> setSyncOnboardingCompleted(bool v) async {
+    _syncOnboardingCompleted = v;
+    notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_syncOnboardingKey, v);
+  }
 
   SettingsProvider() {
     _load();
@@ -1020,6 +1031,7 @@ class SettingsProvider extends ChangeNotifier {
     _logAutoDeleteDays = prefs.getInt(_logAutoDeleteDaysKey) ?? 0;
     _logMaxSizeMB = prefs.getInt(_logMaxSizeMBKey) ?? 0;
     _appLaunchCount = prefs.getInt(_appLaunchCountKey) ?? 0;
+    _syncOnboardingCompleted = prefs.getBool(_syncOnboardingKey) ?? false;
     // Run log cleanup based on current settings
     RequestLogger.cleanupLogs(
       autoDeleteDays: _logAutoDeleteDays,

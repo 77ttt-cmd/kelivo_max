@@ -5657,4 +5657,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get syncRegisterButton => 'Register';
+
+  @override
+  String get syncOnboardingTitle => 'Welcome to Kelivo Max';
+
+  @override
+  String get syncOnboardingSubtitle =>
+      'Sign in to sync your data across devices';
+
+  @override
+  String get syncOnboardingSkip => 'Skip for now';
+
+  @override
+  String get syncOnboardingOrDivider => 'or';
 }

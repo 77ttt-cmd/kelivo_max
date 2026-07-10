@@ -21,7 +21,7 @@ class SyncConfig {
   const SyncConfig({
     this.serverUrl = defaultServerUrl,
     this.username = '',
-    this.enabled = false,
+    this.enabled = true,
     Map<SyncCategory, bool>? categories,
     this.direction = SyncDirection.pullOnly,
     this.cloudExecutionEnabled = false,
@@ -90,7 +90,7 @@ class SyncConfig {
     return SyncConfig(
       serverUrl: json['serverUrl'] as String? ?? defaultServerUrl,
       username: json['username'] as String? ?? '',
-      enabled: json['enabled'] as bool? ?? false,
+      enabled: json['enabled'] as bool? ?? true,
       categories: categoriesMap,
       direction: dir,
       cloudExecutionEnabled: json['cloudExecutionEnabled'] as bool? ?? false,

@@ -189,7 +189,7 @@ void main() {
 
     test('fromJsonString handles invalid JSON gracefully', () {
       final config = SyncConfig.fromJsonString('not-json');
-      expect(config.enabled, false);
+      expect(config.enabled, true);
       expect(config.cloudExecutionEnabled, false);
       expect(config.serverUrl, SyncConfig.defaultServerUrl);
     });

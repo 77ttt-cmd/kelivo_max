@@ -107,7 +107,7 @@ class IncognitoWipe {
     await _credentialStore.clearAll();
 
     // Reset SyncConfig to default
-    await _resetSyncConfig(const SyncConfig());
+    await _resetSyncConfig(const SyncConfig(enabled: false));
   }
 
   /// Delete a single record by category and id.

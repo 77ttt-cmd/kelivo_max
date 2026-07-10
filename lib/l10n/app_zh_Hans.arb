@@ -2000,5 +2000,9 @@
       }
     }
   },
-  "syncRegisterButton": "注册"
+  "syncRegisterButton": "注册",
+  "syncOnboardingTitle": "欢迎使用 Kelivo Max",
+  "syncOnboardingSubtitle": "登录以跨设备同步数据",
+  "syncOnboardingSkip": "暂时跳过",
+  "syncOnboardingOrDivider": "或"
 }

@@ -5437,6 +5437,18 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get syncRegisterButton => '注册';
+
+  @override
+  String get syncOnboardingTitle => '欢迎使用 Kelivo Max';
+
+  @override
+  String get syncOnboardingSubtitle => '登录以跨设备同步数据';
+
+  @override
+  String get syncOnboardingSkip => '暂时跳过';
+
+  @override
+  String get syncOnboardingOrDivider => '或';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hans`).
@@ -10872,6 +10884,18 @@ class AppLocalizationsZhHans extends AppLocalizationsZh {
 
   @override
   String get syncRegisterButton => '注册';
+
+  @override
+  String get syncOnboardingTitle => '欢迎使用 Kelivo Max';
+
+  @override
+  String get syncOnboardingSubtitle => '登录以跨设备同步数据';
+
+  @override
+  String get syncOnboardingSkip => '暂时跳过';
+
+  @override
+  String get syncOnboardingOrDivider => '或';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -16307,4 +16331,16 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get syncRegisterButton => '註冊';
+
+  @override
+  String get syncOnboardingTitle => '歡迎使用 Kelivo Max';
+
+  @override
+  String get syncOnboardingSubtitle => '登入以跨裝置同步資料';
+
+  @override
+  String get syncOnboardingSkip => '暫時略過';
+
+  @override
+  String get syncOnboardingOrDivider => '或';
 }

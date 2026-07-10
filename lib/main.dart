@@ -40,6 +40,7 @@ import 'features/home/services/ask_user_interaction_service.dart';
 import 'features/home/services/tool_approval_service.dart';
 import 'utils/sandbox_path_resolver.dart';
 import 'shared/widgets/app_overlays.dart';
+import 'features/sync/pages/sync_onboarding_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:system_fonts/system_fonts.dart';
 import 'dart:io'
@@ -369,7 +370,7 @@ class MyApp extends StatelessWidget {
                 darkTheme: themedDark,
                 themeMode: settings.themeMode,
                 navigatorObservers: <NavigatorObserver>[routeObserver],
-                home: _selectHome(),
+                home: const _HomeRouter(),
                 builder: (ctx, child) {
                   final bright = Theme.of(ctx).brightness;
                   final overlay = bright == Brightness.dark
@@ -458,14 +459,38 @@ class MyApp extends StatelessWidget {
   }
 }
 
-Widget _selectHome() {
-  // Mobile remains the default platform. Desktop is an added platform.
-  if (kIsWeb) return const HomePage();
-  final isDesktop =
-      defaultTargetPlatform == TargetPlatform.macOS ||
-      defaultTargetPlatform == TargetPlatform.windows ||
-      defaultTargetPlatform == TargetPlatform.linux;
-  return isDesktop ? const DesktopHomePage() : const HomePage();
+class _HomeRouter extends StatefulWidget {
+  const _HomeRouter();
+
+  @override
+  State<_HomeRouter> createState() => _HomeRouterState();
+}
+
+class _HomeRouterState extends State<_HomeRouter> {
+  bool _onboardingDone = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _onboardingDone = context.watch<SettingsProvider>().syncOnboardingCompleted;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_onboardingDone) {
+      return SyncOnboardingPage(
+        onComplete: () {
+          setState(() => _onboardingDone = true);
+        },
+      );
+    }
+    if (kIsWeb) return const HomePage();
+    final isDesktop =
+        defaultTargetPlatform == TargetPlatform.macOS ||
+        defaultTargetPlatform == TargetPlatform.windows ||
+        defaultTargetPlatform == TargetPlatform.linux;
+    return isDesktop ? const DesktopHomePage() : const HomePage();
+  }
 }
 
 // Overrides logic is implemented within SettingsProvider now.
